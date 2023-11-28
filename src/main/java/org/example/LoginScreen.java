@@ -1,9 +1,18 @@
 package org.example;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class LoginScreen extends JFrame {
 
@@ -72,10 +81,33 @@ public class LoginScreen extends JFrame {
 
         loginButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent actionEvent) {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
                 System.out.println("Username: " + username + ", Password: " + password);
+                try {
+                    JSONParser parser = new JSONParser();
+                    InputStream inputStream = getClass().getResourceAsStream("/db/Users.json");
+
+                    if (inputStream == null) {
+                        System.err.println("Unable to find Users.json in the resources");
+                        return;
+                    }
+
+                    try (InputStreamReader reader = new InputStreamReader(inputStream)) {
+                        JSONParser jsonParser = new JSONParser();
+                        JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
+
+                        // Iterate through the array elements
+                        for (Object obj : jsonArray) {
+                            JSONObject jsonObject = (JSONObject) obj;
+                            // Process each JSONObject here
+                            System.out.println(jsonObject.toJSONString());
+                        }
+                    }
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
