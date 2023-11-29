@@ -1,5 +1,7 @@
-package org.example;
+package org.example.screens;
 
+import org.example.Main;
+import org.example.util.Screen;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,45 +11,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class LoginScreen extends JFrame {
-
-    public LoginScreen() {
-        this.setTitle("Pizza Project");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        ImageIcon backgroundImageIcon = new ImageIcon(LoginScreen.class.getResource("/images/cart.jpg"));
-        Image backgroundImage = backgroundImageIcon.getImage();
-
-        setContentPane(new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-            }
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension();
-            }
-        });
-
-        setContentPane(new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-            }
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension();
-            }
-        });
+public class LoginPanel extends JPanel {
+    public LoginPanel(Main navigation) {
+        setLayout(new BorderLayout());
 
         JTextField usernameField = new JTextField(20);
         JTextField passwordField = new JTextField(20);
@@ -77,7 +47,7 @@ public class LoginScreen extends JFrame {
         gbc.gridy = 2;
         inputPanel.add(loginButton, gbc);
 
-        getContentPane().add(inputPanel, BorderLayout.CENTER);
+        this.add(inputPanel, BorderLayout.CENTER);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -98,10 +68,8 @@ public class LoginScreen extends JFrame {
                         JSONParser jsonParser = new JSONParser();
                         JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
 
-                        // Iterate through the array elements
                         for (Object obj : jsonArray) {
                             JSONObject jsonObject = (JSONObject) obj;
-                            // Process each JSONObject here
                             System.out.println(jsonObject.toJSONString());
                         }
                     }
@@ -109,18 +77,6 @@ public class LoginScreen extends JFrame {
                     e.printStackTrace();
                 }
             }
-        });
-
-
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        pack();
-        setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            LoginScreen loginScreen = new LoginScreen();
-            loginScreen.setVisible(true);
         });
     }
 }
