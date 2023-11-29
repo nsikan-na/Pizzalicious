@@ -14,109 +14,92 @@ public class CustomizePizzaPanel extends JPanel {
 
         JPanel topPanel = new JPanel(new BorderLayout());
 
-        JLabel welcomeLabel = new JLabel("Hi, Mark");
-        welcomeLabel.setHorizontalAlignment(JLabel.RIGHT);
-        topPanel.add(welcomeLabel, BorderLayout.NORTH);
-
-        JLabel logoutLabel = new JLabel("Logout");
-        logoutLabel.setHorizontalAlignment(JLabel.RIGHT);
-        topPanel.add(logoutLabel, BorderLayout.EAST);
-        logoutLabel.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
-
-        logoutLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.LOGIN);
-            }
-        });
-
         JLabel titleLabel = new JLabel("Customize Pizza");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         topPanel.add(titleLabel, BorderLayout.CENTER);
 
         add(topPanel, BorderLayout.NORTH);
-        add(createLeftPanel(navigation), BorderLayout.LINE_START);
-        add(createRightPanel(navigation), BorderLayout.LINE_END);
+        add(createMainPanel(navigation), BorderLayout.CENTER);
     }
 
-    private JPanel createLeftPanel(Main navigation) {
-        JPanel leftPanel = new JPanel(new GridBagLayout());
+    private JPanel createMainPanel(Main navigation) {
+        JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         String[] sizeOptions = {"Small", "Medium", "Large", "Extra Large"};
         JComboBox<String> sizeField = new JComboBox<>(sizeOptions);
-        gbc.insets = new Insets(5, 250, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        leftPanel.add(new JLabel("Size:"), gbc);
+        panel.add(new JLabel("Size:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        leftPanel.add(sizeField, gbc);
+        panel.add(sizeField, gbc);
 
         String[] crustOptions = {"Thin", "Thick", "Stuffed"};
         JComboBox<String> crustField = new JComboBox<>(crustOptions);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        leftPanel.add(new JLabel("Crust:"), gbc);
+        panel.add(new JLabel("Crust:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        leftPanel.add(crustField, gbc);
+        panel.add(crustField, gbc);
 
         String[] toppingOptions = {"None", "Pepperoni", "Extra Cheese", "Mushroom", "Onions", "Sausage", "Black Olives", "Green Peppers", "Pineapple"};
         JComboBox<String> topping1Field = new JComboBox<>(toppingOptions);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        leftPanel.add(new JLabel("Topping 1:"), gbc);
+        panel.add(new JLabel("Topping 1:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 3;
-        leftPanel.add(topping1Field, gbc);
+        panel.add(topping1Field, gbc);
 
         JComboBox<String> topping2Field = new JComboBox<>(toppingOptions);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        leftPanel.add(new JLabel("Topping 2:"), gbc);
+        panel.add(new JLabel("Topping 2:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 4;
-        leftPanel.add(topping2Field, gbc);
+        panel.add(topping2Field, gbc);
 
         JComboBox<String> topping3Field = new JComboBox<>(toppingOptions);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
-        leftPanel.add(new JLabel("Topping 3:"), gbc);
+        panel.add(new JLabel("Topping 3:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 5;
-        leftPanel.add(topping3Field, gbc);
+        panel.add(topping3Field, gbc);
 
         JComboBox<String> topping4Field = new JComboBox<>(toppingOptions);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
-        leftPanel.add(new JLabel("Topping 4:"), gbc);
+        panel.add(new JLabel("Topping 4:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 6;
-        leftPanel.add(topping4Field, gbc);
+        panel.add(topping4Field, gbc);
 
         JTextField quantityField = new JTextField(10);
 
         gbc.gridx = 0;
         gbc.gridy = 7;
-        leftPanel.add(new JLabel("Quantity:"), gbc);
+        panel.add(new JLabel("Quantity:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 7;
-        leftPanel.add(quantityField, gbc);
+        panel.add(quantityField, gbc);
 
-        JLabel backButton = new JLabel("Back");
+        JLabel backButton = new JLabel("Back to Menu");
         backButton.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
 
         backButton.addMouseListener(new MouseAdapter() {
@@ -126,37 +109,27 @@ public class CustomizePizzaPanel extends JPanel {
             }
         });
         gbc.gridx = 1;
-        gbc.gridy = 8;
-        leftPanel.add(backButton, gbc);
-
-
-        return leftPanel;
-    }
-
-    private JPanel createRightPanel(Main navigation) {
-        JPanel rightPanel = new JPanel(new GridBagLayout());
+        gbc.gridy = 9;
+        panel.add(backButton, gbc);
 
         ImageIcon originalPizzaIcon = new ImageIcon(CustomizePizzaPanel.class.getResource("/images/pizzaM3.jpg"));
 
         int newWidth = 350;
         int newHeight = 350;
 
-        Image scaledBeverageImage = originalPizzaIcon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-        ImageIcon scaledBeverageIcon = new ImageIcon(scaledBeverageImage);
+        Image scaledPizzaImage = originalPizzaIcon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        ImageIcon scaledPizzaIcon = new ImageIcon(scaledPizzaImage);
 
-        JLabel beverageImageLabel = new JLabel(scaledBeverageIcon);
+        JLabel pizzaImage = new JLabel(scaledPizzaIcon);
 
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
+        gbc.gridx = 3;
         gbc.gridy = 0;
-        gbc.insets = new Insets(5, 5, 5, 500);
+        gbc.gridheight = 9;
+        gbc.insets = new Insets(5, 300, 5, -100);
+        
+        panel.add(pizzaImage, gbc);
 
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        rightPanel.add(beverageImageLabel, gbc);
-
-        JButton submitButton = new JButton("Submit");
+        JButton submitButton = new JButton("Add to Cart");
 
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -165,10 +138,10 @@ public class CustomizePizzaPanel extends JPanel {
             }
         });
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        rightPanel.add(submitButton, gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 9;
+        panel.add(submitButton, gbc);
 
-        return rightPanel;
+        return panel;
     }
 }
