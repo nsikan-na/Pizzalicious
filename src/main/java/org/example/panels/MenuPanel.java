@@ -30,6 +30,18 @@ public class MenuPanel extends JPanel {
             }
         });
 
+        JLabel cartLabel = new JLabel("Cart");
+        cartLabel.setHorizontalAlignment(JLabel.RIGHT);
+        topPanel.add(cartLabel, BorderLayout.EAST);
+        cartLabel.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
+
+        cartLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.CART);
+            }
+        });
+
         JLabel titleLabel = new JLabel("Menu");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);

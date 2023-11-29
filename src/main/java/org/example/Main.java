@@ -14,7 +14,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             Main main = new Main();
 //            main.showScreen(Screen.LOGIN);
-            main.showScreen(Screen.CUSTOMIZE_PIZZA); // remove after dev
+            main.showScreen(Screen.CART); // remove after dev
         });
     }
 
@@ -38,6 +38,9 @@ public class Main {
 
         CustomizeBeveragePanel customizeBeveragePanel = new CustomizeBeveragePanel(this);
         frame.add(customizeBeveragePanel, Screen.CUSTOMIZE_BEVERAGE.toString());
+
+        CartPanel cartPanel = new CartPanel(this);
+        frame.add(cartPanel, Screen.CART.toString());
 
         frame.setVisible(true);
     }
