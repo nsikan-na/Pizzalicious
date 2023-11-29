@@ -1,4 +1,4 @@
-package org.example.screens;
+package org.example.panels;
 
 import org.example.Main;
 import org.example.util.Screen;
@@ -21,38 +21,47 @@ public class LoginPanel extends JPanel {
     public LoginPanel(Main navigation) {
         setLayout(new BorderLayout());
 
+        JLabel titleLabel = new JLabel("Login");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        add(titleLabel, BorderLayout.NORTH);
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+
+
         JTextField usernameField = new JTextField(20);
         JTextField passwordField = new JTextField(20);
         JButton loginButton = new JButton("Login");
-        JLabel createNewUserLink = new JLabel("Create A New User");
+        JLabel createNewUserLabel = new JLabel("Create A New User");
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         inputPanel.add(new JLabel("Username:"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         inputPanel.add(usernameField, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         inputPanel.add(new JLabel("Password:"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         inputPanel.add(passwordField, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         inputPanel.add(loginButton, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
-        inputPanel.add(createNewUserLink, gbc);
+        gbc.gridy = 4;
+        inputPanel.add(createNewUserLabel, gbc);
 
 
         this.add(inputPanel, BorderLayout.CENTER);
@@ -80,8 +89,11 @@ public class LoginPanel extends JPanel {
                             String username = (String) jsonObject.get("username");
                             String password = (String) jsonObject.get("password");
                             if (username.equals(usernameInput) && password.equals(passwordInput)) {
-                                System.out.println("Logged In");
+                                navigation.showScreen(Screen.MENU);
+
                             }
+                            navigation.showScreen(Screen.MENU);
+
                         }
                     }
                 } catch (IOException | ParseException e) {
@@ -90,11 +102,11 @@ public class LoginPanel extends JPanel {
             }
         });
 
-        createNewUserLink.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
-        createNewUserLink.addMouseListener(new MouseAdapter() {
+        createNewUserLabel.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
+        createNewUserLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               navigation.showScreen(Screen.CREATE_A_NEW_USER);
+                navigation.showScreen(Screen.CREATE_A_NEW_USER);
             }
         });
     }

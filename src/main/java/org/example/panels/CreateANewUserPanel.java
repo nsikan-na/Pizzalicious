@@ -1,4 +1,4 @@
-package org.example.screens;
+package org.example.panels;
 
 import org.example.Main;
 import org.example.util.Screen;
@@ -12,7 +12,11 @@ public class CreateANewUserPanel extends JPanel {
     public CreateANewUserPanel(Main navigation) {
         setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("Create New Account");
+        JLabel titleLabel = new JLabel("Create New Account");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        add(titleLabel, BorderLayout.NORTH);
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+
         JTextField nameField = new JTextField(20);
         JTextField phoneField = new JTextField(20);
         JTextField streetField = new JTextField(20);
@@ -32,9 +36,6 @@ public class CreateANewUserPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        inputPanel.add(title, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
