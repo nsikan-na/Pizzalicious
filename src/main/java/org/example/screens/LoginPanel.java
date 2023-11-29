@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +24,7 @@ public class LoginPanel extends JPanel {
         JTextField usernameField = new JTextField(20);
         JTextField passwordField = new JTextField(20);
         JButton loginButton = new JButton("Login");
+        JLabel createNewUserLink = new JLabel("Create A New User");
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -47,16 +50,20 @@ public class LoginPanel extends JPanel {
         gbc.gridy = 2;
         inputPanel.add(loginButton, gbc);
 
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        inputPanel.add(createNewUserLink, gbc);
+
+
         this.add(inputPanel, BorderLayout.CENTER);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String username = usernameField.getText();
-                String password = passwordField.getText();
-                System.out.println("Username: " + username + ", Password: " + password);
+                String usernameInput = usernameField.getText();
+                String passwordInput = passwordField.getText();
+                System.out.println("Username: " + usernameInput + ", Password: " + passwordInput);
                 try {
-                    JSONParser parser = new JSONParser();
                     InputStream inputStream = getClass().getResourceAsStream("/db/Users.json");
 
                     if (inputStream == null) {
@@ -70,12 +77,24 @@ public class LoginPanel extends JPanel {
 
                         for (Object obj : jsonArray) {
                             JSONObject jsonObject = (JSONObject) obj;
-                            System.out.println(jsonObject.toJSONString());
+                            String username = (String) jsonObject.get("username");
+                            String password = (String) jsonObject.get("password");
+                            if (username.equals(usernameInput) && password.equals(passwordInput)) {
+                                System.out.println("Logged In");
+                            }
                         }
                     }
                 } catch (IOException | ParseException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        createNewUserLink.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
+        createNewUserLink.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               navigation.showScreen(Screen.CREATE_A_NEW_USER);
             }
         });
     }
