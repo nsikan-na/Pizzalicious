@@ -1,8 +1,6 @@
 package org.example;
 
-import org.example.panels.LoginPanel;
-import org.example.panels.CreateANewUserPanel;
-import org.example.panels.PizzaOptionPanel;
+import org.example.panels.*;
 import org.example.util.Screen;
 
 import javax.swing.*;
@@ -27,12 +25,19 @@ public class Main {
         frame.setLayout(new CardLayout());
 
         LoginPanel mainMenuPanel = new LoginPanel(this);
-        CreateANewUserPanel createANewUserPanel = new CreateANewUserPanel(this);
-        PizzaOptionPanel menuPanel = new PizzaOptionPanel(this);
-
         frame.add(mainMenuPanel, Screen.LOGIN.toString());
-        frame.add(menuPanel, Screen.MENU.toString());
+
+        CreateANewUserPanel createANewUserPanel = new CreateANewUserPanel(this);
         frame.add(createANewUserPanel, Screen.CREATE_A_NEW_USER.toString());
+
+        MenuPanel menuPanel = new MenuPanel(this);
+        frame.add(menuPanel, Screen.MENU.toString());
+
+        CustomizePizzaPanel customizePizzaPanel = new CustomizePizzaPanel(this);
+        frame.add(customizePizzaPanel,Screen.CUSTOMIZE_PIZZA.toString() );
+
+//        CustomizeBeveragePanel customizeBeveragePanel = new CustomizeBeveragePanel(this);
+//        frame.add(customizeBeveragePanel, Screen.CUSTOMIZE_BEVERAGE.toString());
 
         frame.setVisible(true);
     }

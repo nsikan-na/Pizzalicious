@@ -36,13 +36,13 @@ public class MenuPanel extends JPanel {
         topPanel.add(titleLabel, BorderLayout.CENTER);
 
         add(topPanel, BorderLayout.NORTH);
-        add(createPizzaPanel(), BorderLayout.LINE_START);
-        add(createBeveragesPanel(), BorderLayout.LINE_END);
+        add(createPizzaPanel(navigation), BorderLayout.LINE_START);
+        add(createBeveragesPanel(navigation), BorderLayout.LINE_END);
     }
-    private JPanel createPizzaPanel() {
+    private JPanel createPizzaPanel(Main navigation) {
         JPanel pizzaPanel = new JPanel(new GridBagLayout());
 
-        ImageIcon originalPizzaIcon = new ImageIcon(PizzaOptionPanel.class.getResource("/images/pizzaM3.jpg"));
+        ImageIcon originalPizzaIcon = new ImageIcon(CustomizePizzaPanel.class.getResource("/images/pizzaM3.jpg"));
 
         int newWidth = 350;
         int newHeight = 350;
@@ -65,13 +65,19 @@ public class MenuPanel extends JPanel {
 
         gbc.gridy = 1;
         pizzaPanel.add(pizzaTextLabel, gbc);
-
+        pizzaPanel.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
+        pizzaPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.CUSTOMIZE_PIZZA);
+            }
+        });
         return pizzaPanel;
     }
-    private JPanel createBeveragesPanel() {
+    private JPanel createBeveragesPanel(Main navigation) {
         JPanel beveragePanel = new JPanel(new GridBagLayout());
 
-        ImageIcon originalBeveragePanelIcon = new ImageIcon(PizzaOptionPanel.class.getResource("/images/drink.jpg"));
+        ImageIcon originalBeveragePanelIcon = new ImageIcon(CustomizePizzaPanel.class.getResource("/images/drink.jpg"));
 
         int newWidth = 350;
         int newHeight = 350;
@@ -95,7 +101,13 @@ public class MenuPanel extends JPanel {
 
         gbc.gridy = 1;
         beveragePanel.add(beverageTextLabel, gbc);
-
+        beveragePanel.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
+        beveragePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.CUSTOMIZE_BEVERAGE);
+            }
+        });
         return beveragePanel;
     }
 }

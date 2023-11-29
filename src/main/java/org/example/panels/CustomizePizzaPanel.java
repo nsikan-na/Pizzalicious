@@ -8,8 +8,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class PizzaOptionPanel extends JPanel {
-    public PizzaOptionPanel(Main navigation) {
+public class CustomizePizzaPanel extends JPanel {
+    public CustomizePizzaPanel(Main navigation) {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -30,7 +30,7 @@ public class PizzaOptionPanel extends JPanel {
             }
         });
 
-        JLabel titleLabel = new JLabel("Menu");
+        JLabel titleLabel = new JLabel("Customize Pizza");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         topPanel.add(titleLabel, BorderLayout.CENTER);
@@ -42,7 +42,7 @@ public class PizzaOptionPanel extends JPanel {
     private JPanel createPizzaPanel() {
         JPanel pizzaPanel = new JPanel(new GridBagLayout());
 
-        ImageIcon originalPizzaIcon = new ImageIcon(PizzaOptionPanel.class.getResource("/images/pizzaM3.jpg"));
+        ImageIcon originalPizzaIcon = new ImageIcon(CustomizePizzaPanel.class.getResource("/images/pizzaM3.jpg"));
 
         int newWidth = 350;
         int newHeight = 350;
@@ -61,17 +61,17 @@ public class PizzaOptionPanel extends JPanel {
         gbc.insets = new Insets(0, 500, 20, 0);
         gbc.anchor = GridBagConstraints.CENTER;
 
-        pizzaPanel.add(pizzaImageLabel, gbc);
+//        pizzaPanel.add(pizzaImageLabel, gbc);
 
         gbc.gridy = 1;
-        pizzaPanel.add(pizzaTextLabel, gbc);
+//        pizzaPanel.add(pizzaTextLabel, gbc);
 
         return pizzaPanel;
     }
     private JPanel createBeveragesPanel() {
         JPanel beveragePanel = new JPanel(new GridBagLayout());
 
-        ImageIcon originalBeveragePanelIcon = new ImageIcon(PizzaOptionPanel.class.getResource("/images/drink.jpg"));
+        ImageIcon originalBeveragePanelIcon = new ImageIcon(CustomizePizzaPanel.class.getResource("/images/drink.jpg"));
 
         int newWidth = 350;
         int newHeight = 350;
