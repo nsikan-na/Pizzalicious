@@ -26,6 +26,7 @@ public class CustomizePizzaPanel extends JPanel {
     private JPanel createMainPanel(Main navigation) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+
         String[] sizeOptions = {"Small", "Medium", "Large", "Extra Large"};
         JComboBox<String> sizeField = new JComboBox<>(sizeOptions);
         gbc.insets = new Insets(5, 5, 5, 5);

@@ -36,8 +36,8 @@ public class Main {
         CustomizePizzaPanel customizePizzaPanel = new CustomizePizzaPanel(this);
         frame.add(customizePizzaPanel,Screen.CUSTOMIZE_PIZZA.toString() );
 
-//        CustomizeBeveragePanel customizeBeveragePanel = new CustomizeBeveragePanel(this);
-//        frame.add(customizeBeveragePanel, Screen.CUSTOMIZE_BEVERAGE.toString());
+        CustomizeBeveragePanel customizeBeveragePanel = new CustomizeBeveragePanel(this);
+        frame.add(customizeBeveragePanel, Screen.CUSTOMIZE_BEVERAGE.toString());
 
         frame.setVisible(true);
     }
