@@ -122,7 +122,7 @@ public class ReviewOrderPanel extends JPanel {
                     JLabel pizzaImage = new JLabel(scaledIcon);
 
                     gbc.gridx = 0;
-                    gbc.gridy = i * rowHeight + 1;
+                    gbc.gridy = i * rowHeight + 4;
                     gbc.gridheight = rowHeight;
                     gbc.insets = new Insets(5, 25, 5, 25);
 
@@ -131,7 +131,7 @@ public class ReviewOrderPanel extends JPanel {
                     for (int j = 0; j < itemDetails.size(); j++) {
                         JLabel itemDetailslabel = new JLabel(itemDetails.get(j));
                         gbc.gridx = 1;
-                        gbc.gridy = itemCount + 1;
+                        gbc.gridy = itemCount + 4;
                         gbc.gridheight = 1;
 
                         panel.add(itemDetailslabel, gbc);
@@ -140,7 +140,7 @@ public class ReviewOrderPanel extends JPanel {
 
                     JLabel quantitylabel = new JLabel("x" + quantity.toString());
                     gbc.gridx = 3;
-                    gbc.gridy = i * rowHeight + 1;
+                    gbc.gridy = i * rowHeight + 4;
                     gbc.gridheight = rowHeight;
                     gbc.gridwidth = 1;
                     panel.add(quantitylabel, gbc);
@@ -150,7 +150,7 @@ public class ReviewOrderPanel extends JPanel {
 
                     JLabel pricelabel = new JLabel("$" + price.toString());
                     gbc.gridx = 5;
-                    gbc.gridy = i * rowHeight + 1;
+                    gbc.gridy = i * rowHeight + 4;
                     gbc.gridheight = rowHeight;
 
                     panel.add(pricelabel, gbc);
@@ -159,7 +159,7 @@ public class ReviewOrderPanel extends JPanel {
                 }
                 JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
                 gbc.gridx = 5;
-                gbc.gridy = arraySize * rowHeight + 2;
+                gbc.gridy = arraySize * rowHeight + 5;
                 gbc.gridheight = rowHeight;
 
                 panel.add(totalPriceLabel, gbc);
@@ -179,7 +179,7 @@ public class ReviewOrderPanel extends JPanel {
             }
         });
         gbc.gridx = 1;
-        gbc.gridy = arraySize * rowHeight + 8;
+        gbc.gridy = arraySize * rowHeight + 11;
         panel.add(backButton, gbc);
 
         JButton submitButton = new JButton("Submit Order");
@@ -192,7 +192,7 @@ public class ReviewOrderPanel extends JPanel {
         });
 
         gbc.gridx = 5;
-        gbc.gridy = arraySize * rowHeight + 8;
+        gbc.gridy = arraySize * rowHeight + 11;
         panel.add(submitButton, gbc);
 
         return panel;
