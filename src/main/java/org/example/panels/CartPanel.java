@@ -89,6 +89,7 @@ public class CartPanel extends JPanel {
                         panel.add(itemDetailslabel, gbc);
                         itemCount++;
                     }
+
                     JButton minusButton = new JButton("-");
                     gbc.gridx = 2;
                     gbc.gridy = i * rowHeight+1;
