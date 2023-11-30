@@ -14,7 +14,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             Main main = new Main();
 //            main.showScreen(Screen.LOGIN);
-            main.showScreen(Screen.CART); // remove after dev
+            main.showScreen(Screen.PAYMENT_DELIVERY); // remove after dev
         });
     }
 
@@ -41,6 +41,9 @@ public class Main {
 
         CartPanel cartPanel = new CartPanel(this);
         frame.add(cartPanel, Screen.CART.toString());
+
+        PaymentDeliveryPanel paymentDeliveryPanel = new PaymentDeliveryPanel(this);
+        frame.add(paymentDeliveryPanel, Screen.PAYMENT_DELIVERY.toString());
 
         frame.setVisible(true);
     }
