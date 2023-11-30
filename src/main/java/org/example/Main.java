@@ -48,6 +48,9 @@ public class Main {
         ReviewOrderPanel reviewOrderPanel = new ReviewOrderPanel(this);
         frame.add(reviewOrderPanel, Screen.REVIEW_ORDER.toString());
 
+        ReceiptPanel receiptPanel = new ReceiptPanel(this);
+        frame.add(receiptPanel, Screen.RECEIPT.toString());
+
         frame.setVisible(true);
     }
 

@@ -16,13 +16,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class ReviewOrderPanel extends JPanel {
+public class ReceiptPanel extends JPanel {
     private int itemCount = 0;
     private long totalPrice = 0;
     private int rowHeight = 6;
     private int arraySize = 0;
 
-    public ReviewOrderPanel(Main navigation) {
+    public ReceiptPanel(Main navigation) {
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Review Order");
