@@ -12,7 +12,10 @@ import java.awt.event.MouseEvent;
 
 
 public class PaymentDeliveryPanel extends JPanel {
-    private String paymentMethod="Cash";
+    private JComboBox<String> paymentMethodField;
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
+
     public PaymentDeliveryPanel(Main navigation) {
         setLayout(new BorderLayout());
 
@@ -21,10 +24,9 @@ public class PaymentDeliveryPanel extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 700, 5, 5);
+        gbc.insets = new Insets(5, 600, 5, 5);
 
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -43,25 +45,32 @@ public class PaymentDeliveryPanel extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.insets = new Insets(5, 700, 5, 5);
+        gbc.insets = new Insets(5, 600, 5, 5);
         inputPanel.add(new JLabel("Payment Method:"), gbc);
 
         String[] paymentMethodOptions = {"Cash", "Card", "Check"};
-        JComboBox<String> paymentMethodField = new JComboBox<>(paymentMethodOptions);
+        paymentMethodField = new JComboBox<>(paymentMethodOptions);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.insets = new Insets(5, 5, 5, 5);
-
         inputPanel.add(paymentMethodField, gbc);
 
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+
+        cardPanel.add(createCashPanel(navigation), "Cash");
+        cardPanel.add(createCheckPanel(navigation), "Check");
+        cardPanel.add(createCardPanel(navigation), "Card");
+
+        this.add(inputPanel, BorderLayout.LINE_START);
+        this.add(cardPanel, BorderLayout.CENTER);
+
         paymentMethodField.addActionListener(new ActionListener() {
-
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                String paymentMethodInput = (String) paymentMethodField.getSelectedItem();
-
-                System.out.println(paymentMethodInput);
+            public void actionPerformed(ActionEvent e) {
+                String selectedPaymentMethod = (String) paymentMethodField.getSelectedItem();
+                cardLayout.show(cardPanel, selectedPaymentMethod);
             }
         });
 
@@ -79,18 +88,6 @@ public class PaymentDeliveryPanel extends JPanel {
         gbc.gridy = 3;
 
         inputPanel.add(backButton, gbc);
-
-
-        JPanel cashPanel = createCashPanel(navigation);
-        JPanel cardPanel = createCardPanel(navigation);
-        JPanel checkPanel = createCheckPanel(navigation);
-
-        this.add(inputPanel, BorderLayout.LINE_START);
-        this.add(cashPanel, BorderLayout.LINE_END);
-        this.add(cardPanel, BorderLayout.LINE_END);
-        this.add(checkPanel, BorderLayout.LINE_END);
-
-
     }
 
     public JPanel createCardPanel(Main navigation) {
@@ -100,69 +97,69 @@ public class PaymentDeliveryPanel extends JPanel {
         String[] accountTypeOptions = {"VISA", "MASTERCARD"};
         JComboBox<String> accountTypeField = new JComboBox<>(accountTypeOptions);
 
-        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
         gbc.gridy = 0;
         panel.add(new JLabel("Account Type:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, 5, 5, 300);
         panel.add(accountTypeField, gbc);
 
         JTextField nameField = new JTextField(15);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);
         panel.add(new JLabel("Name:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, 5, 5, 300);
         panel.add(nameField, gbc);
 
         JTextField expirationDateField = new JTextField(15);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         panel.add(new JLabel("Exp Date:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, 5, 5, 300);
         panel.add(expirationDateField, gbc);
 
         JTextField cardNumberField = new JTextField(20);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);
         panel.add(new JLabel("Card #:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 3;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, 5, 5, 300);
         panel.add(cardNumberField, gbc);
 
         JTextField cvvField = new JTextField(10);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);
         panel.add(new JLabel("Cvv:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 4;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, 5, 5, 300);
         panel.add(cvvField, gbc);
 
         JButton submitButton = new JButton("Review Order");
         gbc.gridx = 1;
         gbc.gridy = 5;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, 5, 5, 300);
         panel.add(submitButton, gbc);
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -182,31 +179,31 @@ public class PaymentDeliveryPanel extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.insets = new Insets(5, -500, 5, 5);
         panel.add(new JLabel("Account #:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, -250, 5, 5);
         panel.add(accountNumberField, gbc);
 
         JTextField routingNumberField = new JTextField(15);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.insets = new Insets(5, -500, 5, 5);
 
         panel.add(new JLabel("Routing #:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, -250, 5, 5);
         panel.add(routingNumberField, gbc);
 
         JButton submitButton = new JButton("Review Order");
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.gridy = 5;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, -250, 5, 5);
         panel.add(submitButton, gbc);
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -226,7 +223,7 @@ public class PaymentDeliveryPanel extends JPanel {
         JButton submitButton = new JButton("Review Order");
         gbc.gridx = 1;
         gbc.gridy = 5;
-        gbc.insets = new Insets(5, 5, 5, 600);
+        gbc.insets = new Insets(5, 5, 5, 300);
         panel.add(submitButton, gbc);
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
