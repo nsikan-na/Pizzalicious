@@ -21,7 +21,6 @@ public class ReceiptPanel extends JPanel {
     private long totalPrice = 0;
     private int rowHeight = 6;
     private int arraySize = 0;
-    private boolean isCheck = false;
 
     public ReceiptPanel(Main navigation) {
         setLayout(new BorderLayout());
@@ -37,6 +36,55 @@ public class ReceiptPanel extends JPanel {
     private JPanel createMainPanel(Main navigation) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/db/Current_User.json");
+            if (inputStream == null) {
+                System.err.println("Unable to find Payment_Delivery_Method.json in the resources");
+            }
+
+            try (InputStreamReader reader = new InputStreamReader(inputStream)) {
+                JSONParser jsonParser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
+
+                gbc.insets = new Insets(5, 5, 5, 5);
+
+                JLabel nameLabel = new JLabel("Name: " + jsonObject.get("name"));
+                gbc.gridx = 1;
+                gbc.gridy = 2;
+
+                panel.add(nameLabel, gbc);
+
+                JLabel phoneLabel = new JLabel("Phone: " + jsonObject.get("phone"));
+                gbc.gridx = 1;
+                gbc.gridy = 3;
+                panel.add(phoneLabel, gbc);
+
+                JLabel streetLabel = new JLabel("Street: " + jsonObject.get("street"));
+                gbc.gridx = 1;
+                gbc.gridy = 4;
+
+                panel.add(streetLabel, gbc);
+
+                JLabel cityLabel = new JLabel("City: " + jsonObject.get("city"));
+                gbc.gridx = 1;
+                gbc.gridy = 5;
+                panel.add(cityLabel, gbc);
+
+                JLabel stateLabel = new JLabel("State: " + jsonObject.get("state"));
+                gbc.gridx = 1;
+                gbc.gridy = 6;
+
+                panel.add(stateLabel, gbc);
+
+                JLabel zipLabel = new JLabel("Zip: " + jsonObject.get("zip"));
+                gbc.gridx = 1;
+                gbc.gridy = 7;
+                panel.add(zipLabel, gbc);
+
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
         gbc.insets = new Insets(5, 5, 5, 5);
 
         gbc.gridx = 1;
@@ -57,28 +105,24 @@ public class ReceiptPanel extends JPanel {
             try (InputStreamReader reader = new InputStreamReader(inputStream)) {
                 JSONParser jsonParser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-                if(jsonObject.get("payment").equals("Check")){
-                    isCheck=true;
-                }else{
-                    isCheck=false;
-                }
+
                 gbc.insets = new Insets(5, 5, 5, 5);
 
                 JLabel deliveryLabel = new JLabel("Delivery Method: " + jsonObject.get("delivery"));
                 gbc.gridx = 1;
-                gbc.gridy = 3;
+                gbc.gridy = 8;
 
                 panel.add(deliveryLabel, gbc);
 
                 JLabel paymentLabel = new JLabel("Payment Method: " + jsonObject.get("payment"));
                 gbc.gridx = 1;
-                gbc.gridy = 4;
+                gbc.gridy = 9;
                 panel.add(paymentLabel, gbc);
                 gbc.insets = new Insets(25, 5, 25, 5);
                 JLabel checkLineLabel = new JLabel("x____________________________________________________________________");
                 gbc.gridx = 1;
-                gbc.gridy = 5;
-                if(jsonObject.get("payment").equals("Check")){
+                gbc.gridy = 10;
+                if(jsonObject.get("payment").equals("Card")){
                     panel.add(checkLineLabel, gbc);
                 }
                 gbc.insets = new Insets(5, 5, 5, 5);
@@ -120,7 +164,7 @@ public class ReceiptPanel extends JPanel {
                     JLabel pizzaImage = new JLabel(scaledIcon);
 
                     gbc.gridx = 0;
-                    gbc.gridy = i * rowHeight + 6;
+                    gbc.gridy = i * rowHeight + 13;
                     gbc.gridheight = rowHeight;
                     gbc.insets = new Insets(5, 25, 5, 25);
 
@@ -129,7 +173,7 @@ public class ReceiptPanel extends JPanel {
                     for (int j = 0; j < itemDetails.size(); j++) {
                         JLabel itemDetailslabel = new JLabel(itemDetails.get(j));
                         gbc.gridx = 1;
-                        gbc.gridy = itemCount + 6;
+                        gbc.gridy = itemCount + 13;
                         gbc.gridheight = 1;
 
                         panel.add(itemDetailslabel, gbc);
@@ -138,7 +182,7 @@ public class ReceiptPanel extends JPanel {
 
                     JLabel quantitylabel = new JLabel("x" + quantity.toString());
                     gbc.gridx = 3;
-                    gbc.gridy = i * rowHeight + 6;
+                    gbc.gridy = i * rowHeight + 13;
                     gbc.gridheight = rowHeight;
                     gbc.gridwidth = 1;
                     panel.add(quantitylabel, gbc);
@@ -148,7 +192,7 @@ public class ReceiptPanel extends JPanel {
 
                     JLabel pricelabel = new JLabel("$" + price.toString());
                     gbc.gridx = 5;
-                    gbc.gridy = i * rowHeight + 6;
+                    gbc.gridy = i * rowHeight + 13;
                     gbc.gridheight = rowHeight;
 
                     panel.add(pricelabel, gbc);
@@ -157,7 +201,7 @@ public class ReceiptPanel extends JPanel {
                 }
                 JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
                 gbc.gridx = 5;
-                gbc.gridy = arraySize * rowHeight + 7;
+                gbc.gridy = arraySize * rowHeight + 14;
                 gbc.gridheight = rowHeight;
 
                 panel.add(totalPriceLabel, gbc);
@@ -176,7 +220,7 @@ public class ReceiptPanel extends JPanel {
         });
 
         gbc.gridx = 5;
-        gbc.gridy = arraySize * rowHeight + 13;
+        gbc.gridy = arraySize * rowHeight + 20;
         panel.add(submitButton, gbc);
 
         return panel;

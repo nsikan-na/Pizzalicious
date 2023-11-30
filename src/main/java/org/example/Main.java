@@ -14,7 +14,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             Main main = new Main();
 //            main.showScreen(Screen.LOGIN);
-            main.showScreen(Screen.MENU); // remove after dev
+            main.showScreen(Screen.RECEIPT); // remove after dev
         });
     }
 
