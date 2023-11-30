@@ -1,12 +1,18 @@
 package org.example.panels;
 
 import org.example.Main;
+import org.example.util.Screen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class PaymentDeliveryPanel extends JPanel {
+    private String paymentMethod="Cash";
     public PaymentDeliveryPanel(Main navigation) {
         setLayout(new BorderLayout());
 
@@ -16,10 +22,9 @@ public class PaymentDeliveryPanel extends JPanel {
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
 
-
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(5, 700, 5, 5);
 
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.CENTER;
@@ -33,10 +38,12 @@ public class PaymentDeliveryPanel extends JPanel {
 
         gbc.gridx = 1;
         gbc.gridy = 1;
+        gbc.insets = new Insets(5, 5, 5, 5);
         inputPanel.add(deliveryMethodField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.insets = new Insets(5, 700, 5, 5);
         inputPanel.add(new JLabel("Payment Method:"), gbc);
 
         String[] paymentMethodOptions = {"Cash", "Card", "Check"};
@@ -44,13 +51,190 @@ public class PaymentDeliveryPanel extends JPanel {
 
         gbc.gridx = 1;
         gbc.gridy = 2;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
         inputPanel.add(paymentMethodField, gbc);
 
+        paymentMethodField.addActionListener(new ActionListener() {
 
-        this.add(inputPanel, BorderLayout.CENTER);
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String paymentMethodInput = (String) paymentMethodField.getSelectedItem();
+
+                System.out.println(paymentMethodInput);
+            }
+        });
+
+        JLabel backButton = new JLabel("Back to Menu");
+
+        backButton.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
+
+        backButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.MENU);
+            }
+        });
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+
+        inputPanel.add(backButton, gbc);
 
 
+        JPanel cashPanel = createCashPanel(navigation);
+        JPanel cardPanel = createCardPanel(navigation);
+        JPanel checkPanel = createCheckPanel(navigation);
+
+        this.add(inputPanel, BorderLayout.LINE_START);
+        this.add(cashPanel, BorderLayout.LINE_END);
+        this.add(cardPanel, BorderLayout.LINE_END);
+        this.add(checkPanel, BorderLayout.LINE_END);
 
 
+    }
+
+    public JPanel createCardPanel(Main navigation) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        String[] accountTypeOptions = {"VISA", "MASTERCARD"};
+        JComboBox<String> accountTypeField = new JComboBox<>(accountTypeOptions);
+
+        gbc.insets = new Insets(5, 600, 5, 5);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(new JLabel("Account Type:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(accountTypeField, gbc);
+
+        JTextField nameField = new JTextField(15);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(5, 600, 5, 5);
+        panel.add(new JLabel("Name:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(nameField, gbc);
+
+        JTextField expirationDateField = new JTextField(15);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(5, 600, 5, 5);
+
+        panel.add(new JLabel("Exp Date:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(expirationDateField, gbc);
+
+        JTextField cardNumberField = new JTextField(20);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.insets = new Insets(5, 600, 5, 5);
+        panel.add(new JLabel("Card #:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(cardNumberField, gbc);
+
+        JTextField cvvField = new JTextField(10);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.insets = new Insets(5, 600, 5, 5);
+        panel.add(new JLabel("Cvv:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(cvvField, gbc);
+
+        JButton submitButton = new JButton("Review Order");
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(submitButton, gbc);
+        submitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.REVIEW_ORDER);
+            }
+        });
+
+        return panel;
+    }
+
+    public JPanel createCheckPanel(Main navigation) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        JTextField accountNumberField = new JTextField(15);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(5, 600, 5, 5);
+        panel.add(new JLabel("Account #:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(accountNumberField, gbc);
+
+        JTextField routingNumberField = new JTextField(15);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(5, 600, 5, 5);
+
+        panel.add(new JLabel("Routing #:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(routingNumberField, gbc);
+
+        JButton submitButton = new JButton("Review Order");
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(submitButton, gbc);
+        submitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.REVIEW_ORDER);
+            }
+        });
+
+        return panel;
+    }
+
+    public JPanel createCashPanel(Main navigation) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+
+        JButton submitButton = new JButton("Review Order");
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        gbc.insets = new Insets(5, 5, 5, 600);
+        panel.add(submitButton, gbc);
+        submitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.REVIEW_ORDER);
+            }
+        });
+
+        return panel;
     }
 }
