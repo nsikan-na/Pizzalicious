@@ -89,7 +89,7 @@ public class ReviewOrderPanel extends JPanel {
         }
         try {
             InputStream inputStream = getClass().getResourceAsStream("/db/Payment_Delivery_Method.json");
-            if (inputStream == null ) {
+            if (inputStream == null) {
                 System.err.println("Unable to find Payment_Delivery_Method.json in the resources");
             }
 

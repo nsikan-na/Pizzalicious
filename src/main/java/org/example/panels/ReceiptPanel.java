@@ -25,14 +25,12 @@ public class ReceiptPanel extends JPanel {
     public ReceiptPanel(Main navigation) {
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Review Order");
+        JLabel titleLabel = new JLabel("Receipt");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-
         add(createMainPanel(navigation), BorderLayout.CENTER);
-
     }
 
     private JPanel createMainPanel(Main navigation) {
@@ -89,7 +87,7 @@ public class ReceiptPanel extends JPanel {
         }
         try {
             InputStream inputStream = getClass().getResourceAsStream("/db/Payment_Delivery_Method.json");
-            if (inputStream == null ) {
+            if (inputStream == null) {
                 System.err.println("Unable to find Payment_Delivery_Method.json in the resources");
             }
 
