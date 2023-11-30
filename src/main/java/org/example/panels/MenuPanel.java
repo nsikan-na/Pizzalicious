@@ -14,43 +14,46 @@ public class MenuPanel extends JPanel {
 
         JPanel topPanel = new JPanel(new BorderLayout());
 
-        JLabel welcomeLabel = new JLabel("Hi, Mark");
-        welcomeLabel.setHorizontalAlignment(JLabel.RIGHT);
-        topPanel.add(welcomeLabel, BorderLayout.NORTH);
+        JLabel titleLabel = new JLabel("Menu");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        topPanel.add(titleLabel, BorderLayout.CENTER);
 
-        JLabel logoutLabel = new JLabel("Logout");
-        logoutLabel.setHorizontalAlignment(JLabel.RIGHT);
-        topPanel.add(logoutLabel, BorderLayout.EAST);
-        logoutLabel.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
-
-        logoutLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.LOGIN);
-            }
-        });
-
-        JLabel cartLabel = new JLabel("Cart");
-        cartLabel.setHorizontalAlignment(JLabel.RIGHT);
-        topPanel.add(cartLabel, BorderLayout.EAST);
-        cartLabel.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
-
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JLabel cartLabel = new JLabel("View Cart");
+        cartLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         cartLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 navigation.showScreen(Screen.CART);
             }
         });
+        buttonPanel.add(cartLabel);
 
-        JLabel titleLabel = new JLabel("Menu");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        topPanel.add(titleLabel, BorderLayout.CENTER);
+        JLabel welcomeLabel = new JLabel("Hi, Mark");
+        welcomeLabel.setHorizontalAlignment(JLabel.RIGHT);
+        buttonPanel.add(welcomeLabel);
+
+        JLabel logoutLabel = new JLabel("Logout");
+        logoutLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        logoutLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                navigation.showScreen(Screen.LOGIN);
+            }
+        });
+        buttonPanel.add(logoutLabel);
+
+
+
+        topPanel.add(buttonPanel, BorderLayout.EAST);
 
         add(topPanel, BorderLayout.NORTH);
+
         add(createPizzaPanel(navigation), BorderLayout.LINE_START);
         add(createBeveragesPanel(navigation), BorderLayout.LINE_END);
     }
+
     private JPanel createPizzaPanel(Main navigation) {
         JPanel pizzaPanel = new JPanel(new GridBagLayout());
 
