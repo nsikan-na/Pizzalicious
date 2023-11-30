@@ -1,5 +1,11 @@
 {
   "id": 1234567890,
   "username": "John",
-  "password": "Doe"
+  "password": "Doe",
+  "name": "John Doe",
+  "street": "123 Lane Street",
+  "phone": 1234567890,
+  "city": "Dogville",
+  "state": "GA",
+  "zip": 30039
 }
