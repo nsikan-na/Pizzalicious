@@ -37,14 +37,12 @@ public class CartItem {
             return;
         }
         this.quantity-=1;
-        System.out.println(this.quantity);
 
     }
 
     public void increaseQuantity() {
 
         this.quantity+=1;
-        System.out.println(this.quantity);
     }
 
     public int getId() {
