@@ -36,12 +36,15 @@ public class CartItem {
         if (this.quantity < 0) {
             return;
         }
-        this.quantity--;
+        this.quantity-=1;
+        System.out.println(this.quantity);
+
     }
 
     public void increaseQuantity() {
 
-        this.quantity++;
+        this.quantity+=1;
+        System.out.println(this.quantity);
     }
 
     public int getId() {

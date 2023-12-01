@@ -29,13 +29,16 @@ public class CartPanel extends JPanel {
     }
 
     private JPanel createMainPanel(Main main) {
+
+
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        System.out.println("Hey2");
+        JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
 
         arraySize = main.getCartSize();
 
         for (int i = 0; i < arraySize; i++) {
+            final int currentItemIndex = i;
             String item = main.getCart().get(i).getItem();
             ArrayList<String> itemDetails = main.getCart().get(i).getItemDetails();
             Double pricePerItem = main.getCart().get(i).getPricePerItem();
@@ -79,11 +82,7 @@ public class CartPanel extends JPanel {
             gbc.gridheight = rowHeight;
             gbc.gridwidth = 1;
             panel.add(minusButton, gbc);
-            minusButton.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                }
-            });
+
 
             JLabel quantitylabel = new JLabel("x" + quantity.toString());
             gbc.gridx = 3;
@@ -99,25 +98,41 @@ public class CartPanel extends JPanel {
             gbc.gridheight = rowHeight;
             gbc.gridwidth = 1;
             panel.add(addButton, gbc);
-            addButton.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                }
-            });
+
 
             double price = quantity * pricePerItem;
             totalPrice += price;
-
+            totalPriceLabel.setText("Total: $" + totalPrice);
             JLabel pricelabel = new JLabel("$" + price);
             gbc.gridx = 5;
             gbc.gridy = i * rowHeight + 1;
             gbc.gridheight = rowHeight;
 
             panel.add(pricelabel, gbc);
+            minusButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    main.getCart().get(currentItemIndex).decreaseQuantity();
+                    quantitylabel.setText("x" + main.getCart().get(currentItemIndex).getQuantity());
+                    pricelabel.setText("" + main.getCart().get(currentItemIndex).getQuantity() * main.getCart().get(currentItemIndex).getPricePerItem());
+                    totalPrice -= main.getCart().get(currentItemIndex).getPricePerItem();
+                    totalPriceLabel.setText("Total: $" + totalPrice);
 
+                }
+            });
+            addButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    main.getCart().get(currentItemIndex).increaseQuantity();
+                    quantitylabel.setText("x" + main.getCart().get(currentItemIndex).getQuantity());
+                    pricelabel.setText("" + main.getCart().get(currentItemIndex).getQuantity() * main.getCart().get(currentItemIndex).getPricePerItem());
+                    totalPrice += main.getCart().get(currentItemIndex).getPricePerItem();
+                    totalPriceLabel.setText("Total: $" + totalPrice);
+                }
+            });
 
         }
-        JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
+
         gbc.gridx = 5;
         gbc.gridy = arraySize * rowHeight + 2;
         gbc.gridheight = rowHeight;

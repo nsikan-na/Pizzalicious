@@ -14,6 +14,9 @@ public class Main {
     public JFrame frame;
     private ArrayList<CartItem> cart = new ArrayList<>();
 
+    public String deliveryMethod=null;
+
+    public String paymentMethod=null;
 
     public static void main(String[] args) {
 
