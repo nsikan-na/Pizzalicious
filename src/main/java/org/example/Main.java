@@ -7,13 +7,11 @@ import org.json.simple.JSONArray;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class Main {
-    private JFrame frame;
+    public JFrame frame;
     private ArrayList<CartItem> cart = new ArrayList<>();
 
 
@@ -76,5 +74,13 @@ public class Main {
 
     public void printCart() {
         System.out.println(cart.size());
+    }
+
+    public int getCartSize(){
+        return cart.size();
+    }
+
+    public ArrayList<CartItem> getCart(){
+        return cart;
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class CartItem {
     static int counter = 1;
     private int id;
+    private String item;
     private ArrayList<String> itemDetails;
     private double pricePerItem;
     private int quantity;
@@ -12,6 +13,7 @@ public class CartItem {
     public CartItem(String item, ArrayList<String> itemDetails, double pricePerItem, int quantity) {
         this.id = counter;
         counter++;
+        this.item = item;
         this.itemDetails = itemDetails;
         this.pricePerItem = pricePerItem;
         this.quantity = quantity;
@@ -42,8 +44,11 @@ public class CartItem {
         this.quantity++;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
+    public String getItem() {
+        return item;
+    }
 }
