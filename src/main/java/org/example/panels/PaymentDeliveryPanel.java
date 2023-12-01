@@ -53,7 +53,7 @@ public class PaymentDeliveryPanel extends JPanel {
         gbc.gridy = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
         inputPanel.add(deliveryMethodField, gbc);
-
+        inputPanel.setBackground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.insets = new Insets(5, 600, 5, 5);
