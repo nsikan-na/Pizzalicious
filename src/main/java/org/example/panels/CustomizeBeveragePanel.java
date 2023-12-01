@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class CustomizeBeveragePanel extends JPanel {
+
+    private double myPrice = 1;
+
     public CustomizeBeveragePanel(Main main) {
         setLayout(new BorderLayout());
 
@@ -71,7 +74,7 @@ public class CustomizeBeveragePanel extends JPanel {
             }
         });
         gbc.gridx = 1;
-        gbc.gridy = 9;
+        gbc.gridy = 11;
         panel.add(backButton, gbc);
 
         ImageIcon originalPizzaIcon = new ImageIcon(CustomizeBeveragePanel.class.getResource("/images/drink.jpg"));
@@ -90,6 +93,12 @@ public class CustomizeBeveragePanel extends JPanel {
         gbc.insets = new Insets(5, 300, 5, -100);
 
         panel.add(pizzaImage, gbc);
+
+        JLabel priceLabel = new JLabel("$" + myPrice);
+        gbc.gridheight = 1;
+        gbc.gridx = 3;
+        gbc.gridy = 10;
+        panel.add(priceLabel, gbc);
 
         JButton submitButton = new JButton("Add to Cart");
 
@@ -113,7 +122,7 @@ public class CustomizeBeveragePanel extends JPanel {
         });
 
         gbc.gridx = 3;
-        gbc.gridy = 9;
+        gbc.gridy = 11;
         panel.add(submitButton, gbc);
 
         return panel;

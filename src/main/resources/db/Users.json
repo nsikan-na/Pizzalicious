@@ -56,13 +56,13 @@
   },
   {
     "zipCode": "",
-    "password": "ran",
+    "password": "",
     "phone": "",
     "city": "",
     "street": "",
     "accountType": "VISA",
     "name": "",
     "state": "",
-    "username": "ran"
+    "username": ""
   }
 ]
