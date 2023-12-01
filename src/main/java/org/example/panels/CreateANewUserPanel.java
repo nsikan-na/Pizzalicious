@@ -151,6 +151,9 @@ public class CreateANewUserPanel extends JPanel {
                 String accountTypeInput = (String) accountTypeField.getSelectedItem();
                 String usernameInput = usernameField.getText();
                 String passwordInput = passwordField.getText();
+                if(usernameInput.equals("") ||passwordInput.equals("")){
+                    return;
+                }
                 try {
                     InputStream inputStream = getClass().getResourceAsStream("/db/Users.json");
 
