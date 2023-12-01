@@ -102,6 +102,10 @@ public class CustomizeBeveragePanel extends JPanel {
                 ArrayList<String> itemDetailsArr = new ArrayList<>();
                 itemDetailsArr.add(softDrinkInput);
                 itemDetailsArr.add(sizeInput);
+                itemDetailsArr.add("None");
+                itemDetailsArr.add("None");
+                itemDetailsArr.add("None");
+                itemDetailsArr.add("None");
                 main.addToCart(new CartItem("drink", itemDetailsArr, 5, quantityInput));
                 main.printCart();
                 main.showScreen(Screen.MENU);

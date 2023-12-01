@@ -2,18 +2,13 @@ package org.example.panels;
 
 import org.example.Main;
 import org.example.util.Screen;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 
 public class ReceiptPanel extends JPanel {
@@ -136,7 +131,7 @@ public class ReceiptPanel extends JPanel {
             panel.add(pizzaImage, gbc);
 
             for (int j = 0; j < itemDetails.size(); j++) {
-                JLabel itemDetailslabel = new JLabel(itemDetails.get(j));
+                JLabel itemDetailslabel = new JLabel(itemDetails.get(j).equals("None")?"":itemDetails.get(j));
                 gbc.gridx = 1;
                 gbc.gridy = itemCount + 13;
                 gbc.gridheight = 1;
@@ -177,6 +172,7 @@ public class ReceiptPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                main.cart= new ArrayList<>();
                 main.showScreen(Screen.MENU);
             }
         });

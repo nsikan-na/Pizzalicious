@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Main {
     public JFrame frame;
-    private ArrayList<CartItem> cart = new ArrayList<>();
+    public ArrayList<CartItem> cart = new ArrayList<>();
 
     public String deliveryMethod=null;
 

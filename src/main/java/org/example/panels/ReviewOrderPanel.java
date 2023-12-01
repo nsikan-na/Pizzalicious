@@ -113,7 +113,7 @@ public class ReviewOrderPanel extends JPanel {
                     panel.add(pizzaImage, gbc);
 
                     for (int j = 0; j < itemDetails.size(); j++) {
-                        JLabel itemDetailslabel = new JLabel(itemDetails.get(j));
+                        JLabel itemDetailslabel = new JLabel(itemDetails.get(j).equals("None")?"":itemDetails.get(j));
                         gbc.gridx = 1;
                         gbc.gridy = itemCount + 8;
                         gbc.gridheight = 1;

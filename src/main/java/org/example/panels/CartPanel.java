@@ -34,7 +34,28 @@ public class CartPanel extends JPanel {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
+        if (main.cart.size() <= 0) {
+            JLabel backButton = new JLabel("Back to Menu");
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            panel.add(new JLabel("Cart is Empty"), gbc);
+            backButton.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
 
+            backButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    main.showScreen(Screen.MENU);
+                }
+            });
+            gbc.insets = new Insets(15, 5, 15, 5);
+
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            panel.add(backButton, gbc);
+
+
+            return panel;
+        }
         arraySize = main.getCartSize();
 
         for (int i = 0; i < arraySize; i++) {
@@ -64,7 +85,7 @@ public class CartPanel extends JPanel {
             panel.add(pizzaImage, gbc);
 
             for (int j = 0; j < itemDetails.size(); j++) {
-                JLabel itemDetailslabel = new JLabel(itemDetails.get(j));
+                JLabel itemDetailslabel = new JLabel(itemDetails.get(j).equals("None")?"":itemDetails.get(j));
                 gbc.gridx = 1;
                 gbc.gridy = itemCount + 1;
                 gbc.gridheight = 1;
