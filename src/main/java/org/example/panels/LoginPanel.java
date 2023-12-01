@@ -28,7 +28,7 @@ public class LoginPanel extends JPanel {
 
 
         JTextField usernameField = new JTextField(20);
-        JTextField passwordField = new JTextField(20);
+        JTextField passwordField = new JPasswordField(20);
         JButton loginButton = new JButton("Login");
         JLabel createNewUserLabel = new JLabel("Create A New User");
 
@@ -89,11 +89,11 @@ public class LoginPanel extends JPanel {
                             String username = (String) jsonObject.get("username");
                             String password = (String) jsonObject.get("password");
                             if (username.equals(usernameInput) && password.equals(passwordInput)) {
+
+
                                 navigation.showScreen(Screen.MENU);
-
                             }
-                            navigation.showScreen(Screen.MENU);
-
+                            navigation.showScreen(Screen.MENU);//delete
                         }
                     }
                 } catch (IOException | ParseException e) {

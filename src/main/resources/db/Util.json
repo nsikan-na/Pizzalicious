@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "item": "pizza",
+    "itemDetails": [
+      "Small",
+      "Stuffed Crust",
+      "Pepperoni",
+      "Extra Cheese",
+      "Mushrooms",
+      "Green Peppers"
+    ],
+    "pricePerItem": 10,
+    "quantity": 2
+  },
+  {
+    "id": 2,
+    "item": "drink",
+    "itemDetails": [
+      "Large",
+      "Coca-Cola"
+    ],
+    "pricePerItem": 3,
+    "quantity": 2
+  }
+]

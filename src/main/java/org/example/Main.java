@@ -1,17 +1,27 @@
 package org.example;
 
 import org.example.panels.*;
+import org.example.util.CartItem;
 import org.example.util.Screen;
+import org.json.simple.JSONArray;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Main {
     private JFrame frame;
+    private ArrayList<CartItem> cart = new ArrayList<>();
+
 
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(() -> {
+
+
             Main main = new Main();
 //            main.showScreen(Screen.LOGIN);
             main.showScreen(Screen.LOGIN); // remove after dev
@@ -19,6 +29,7 @@ public class Main {
     }
 
     public Main() {
+
         frame = new JFrame("Pizza Project");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +45,7 @@ public class Main {
         frame.add(menuPanel, Screen.MENU.toString());
 
         CustomizePizzaPanel customizePizzaPanel = new CustomizePizzaPanel(this);
-        frame.add(customizePizzaPanel,Screen.CUSTOMIZE_PIZZA.toString() );
+        frame.add(customizePizzaPanel, Screen.CUSTOMIZE_PIZZA.toString());
 
         CustomizeBeveragePanel customizeBeveragePanel = new CustomizeBeveragePanel(this);
         frame.add(customizeBeveragePanel, Screen.CUSTOMIZE_BEVERAGE.toString());
@@ -57,5 +68,13 @@ public class Main {
     public void showScreen(Screen screen) {
         CardLayout cardLayout = (CardLayout) frame.getContentPane().getLayout();
         cardLayout.show(frame.getContentPane(), screen.toString());
+    }
+
+    public void addToCart(CartItem cartItem) {
+        cart.add(cartItem);
+    }
+
+    public void printCart() {
+        System.out.println(cart.size());
     }
 }

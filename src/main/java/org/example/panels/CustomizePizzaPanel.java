@@ -1,15 +1,19 @@
 package org.example.panels;
 
 import org.example.Main;
+import org.example.util.CartItem;
 import org.example.util.Screen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class CustomizePizzaPanel extends JPanel {
-    public CustomizePizzaPanel(Main navigation) {
+    private int price = 7;
+
+    public CustomizePizzaPanel(Main main) {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -20,14 +24,14 @@ public class CustomizePizzaPanel extends JPanel {
         topPanel.add(titleLabel, BorderLayout.CENTER);
 
         add(topPanel, BorderLayout.NORTH);
-        add(createMainPanel(navigation), BorderLayout.CENTER);
+        add(createMainPanel(main), BorderLayout.CENTER);
     }
 
-    private JPanel createMainPanel(Main navigation) {
+    private JPanel createMainPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        String[] sizeOptions = {"Small", "Medium", "Large", "Extra Large"};
+        String[] sizeOptions = {"Small", "Medium(+1)", "Large(+2)", "Extra Large(+4)"};
         JComboBox<String> sizeField = new JComboBox<>(sizeOptions);
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
@@ -38,7 +42,7 @@ public class CustomizePizzaPanel extends JPanel {
         gbc.gridy = 1;
         panel.add(sizeField, gbc);
 
-        String[] crustOptions = {"Thin", "Thick", "Stuffed"};
+        String[] crustOptions = {"Thin", "Thick (+1)", "Stuffed(+2)"};
         JComboBox<String> crustField = new JComboBox<>(crustOptions);
 
         gbc.gridx = 0;
@@ -106,7 +110,7 @@ public class CustomizePizzaPanel extends JPanel {
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.MENU);
+                main.showScreen(Screen.MENU);
             }
         });
         gbc.gridx = 1;
@@ -127,7 +131,7 @@ public class CustomizePizzaPanel extends JPanel {
         gbc.gridy = 0;
         gbc.gridheight = 9;
         gbc.insets = new Insets(5, 300, 5, -100);
-        
+
         panel.add(pizzaImage, gbc);
 
         JButton submitButton = new JButton("Add to Cart");
@@ -135,8 +139,27 @@ public class CustomizePizzaPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.MENU);
+
+                String sizeInput = (String) sizeField.getSelectedItem();
+                String crustInput = (String) crustField.getSelectedItem();
+                String topping1Input = (String) topping1Field.getSelectedItem();
+                String topping2Input = (String) topping2Field.getSelectedItem();
+                String topping3Input = (String) topping3Field.getSelectedItem();
+                String topping4Input = (String) topping4Field.getSelectedItem();
+                Integer quantityInput = Integer.parseInt(quantityField.getText());
+                ArrayList<String> itemDetailsArr = new ArrayList<>();
+                itemDetailsArr.add(sizeInput);
+                itemDetailsArr.add(crustInput);
+                itemDetailsArr.add(topping1Input);
+                itemDetailsArr.add(topping2Input);
+                itemDetailsArr.add(topping3Input);
+                itemDetailsArr.add(topping4Input);
+                main.addToCart(new CartItem("pizza", itemDetailsArr, 5, quantityInput));
+                main.printCart();
+                main.showScreen(Screen.MENU);
             }
+
+
         });
 
         gbc.gridx = 3;

@@ -1,15 +1,17 @@
 package org.example.panels;
 
 import org.example.Main;
+import org.example.util.CartItem;
 import org.example.util.Screen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class CustomizeBeveragePanel extends JPanel {
-    public CustomizeBeveragePanel(Main navigation) {
+    public CustomizeBeveragePanel(Main main) {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -20,10 +22,10 @@ public class CustomizeBeveragePanel extends JPanel {
         topPanel.add(titleLabel, BorderLayout.CENTER);
 
         add(topPanel, BorderLayout.NORTH);
-        add(createMainPanel(navigation), BorderLayout.CENTER);
+        add(createMainPanel(main), BorderLayout.CENTER);
     }
 
-    private JPanel createMainPanel(Main navigation) {
+    private JPanel createMainPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -65,7 +67,7 @@ public class CustomizeBeveragePanel extends JPanel {
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.MENU);
+                main.showScreen(Screen.MENU);
             }
         });
         gbc.gridx = 1;
@@ -94,7 +96,15 @@ public class CustomizeBeveragePanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.MENU);
+                String softDrinkInput = (String) softDrinkField.getSelectedItem();
+                String sizeInput = (String) sizeField.getSelectedItem();
+                Integer quantityInput = Integer.parseInt(quantityField.getText());
+                ArrayList<String> itemDetailsArr = new ArrayList<>();
+                itemDetailsArr.add(softDrinkInput);
+                itemDetailsArr.add(sizeInput);
+                main.addToCart(new CartItem("drink", itemDetailsArr, 5, quantityInput));
+                main.printCart();
+                main.showScreen(Screen.MENU);
             }
         });
 
