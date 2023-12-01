@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class LoginPanel extends JPanel {
     private MenuPanel menuPanel;
@@ -104,6 +105,7 @@ public class LoginPanel extends JPanel {
                                 menuPanel = new MenuPanel(main);
                                 main.frame.add(menuPanel, Screen.MENU.toString());
                                 main.showScreen(Screen.MENU);
+                                main.cart= new ArrayList<>();
                             }
                             if(main.newUser!=null) {
                                 if (main.newUser.username.equals(usernameInput) && main.newUser.password.equals(passwordInput)) {
@@ -112,6 +114,7 @@ public class LoginPanel extends JPanel {
                                     menuPanel = new MenuPanel(main);
                                     main.frame.add(menuPanel, Screen.MENU.toString());
                                     main.showScreen(Screen.MENU);
+                                    main.cart= new ArrayList<>();
                                 }
                             }
                         }

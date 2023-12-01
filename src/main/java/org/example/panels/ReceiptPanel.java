@@ -25,7 +25,10 @@ public class ReceiptPanel extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         setBackground(Color.WHITE);
-        add(createMainPanel(main), BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(createMainPanel(main));
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     private JPanel createMainPanel(Main main) {
