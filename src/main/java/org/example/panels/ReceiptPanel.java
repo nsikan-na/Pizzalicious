@@ -44,68 +44,91 @@ public class ReceiptPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
 
 
-                gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-                JLabel nameLabel = new JLabel("Name: " + main.currentUser.getName());
-                gbc.gridx = 1;
-                gbc.gridy = 2;
+        JLabel nameLabel = new JLabel("Name: " + main.currentUser.getName());
+        nameLabel.setBackground(Color.WHITE);
+        nameLabel.setOpaque(true);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
 
-                panel.add(nameLabel, gbc);
+        panel.add(nameLabel, gbc);
 
-                JLabel phoneLabel = new JLabel("Phone: " + main.currentUser.getPhone());
-                gbc.gridx = 1;
-                gbc.gridy = 3;
-                panel.add(phoneLabel, gbc);
+        JLabel phoneLabel = new JLabel("Phone: " + main.currentUser.getPhone());
+        phoneLabel.setBackground(Color.WHITE);
+        phoneLabel.setOpaque(true);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel.add(phoneLabel, gbc);
 
-                JLabel streetLabel = new JLabel("Street: " + main.currentUser.getStreet());
-                gbc.gridx = 1;
-                gbc.gridy = 4;
+        JLabel streetLabel = new JLabel("Street: " + main.currentUser.getStreet());
+        streetLabel.setBackground(Color.WHITE);
+        streetLabel.setOpaque(true);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
 
-                panel.add(streetLabel, gbc);
+        panel.add(streetLabel, gbc);
 
-                JLabel cityLabel = new JLabel("City: " + main.currentUser.getCity());
-                gbc.gridx = 1;
-                gbc.gridy = 5;
-                panel.add(cityLabel, gbc);
+        JLabel cityLabel = new JLabel("City: " + main.currentUser.getCity());
+        cityLabel.setBackground(Color.WHITE);
+        cityLabel.setOpaque(true);
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panel.add(cityLabel, gbc);
 
-                JLabel stateLabel = new JLabel("State: " + main.currentUser.getState());
-                gbc.gridx = 1;
-                gbc.gridy = 6;
+        JLabel stateLabel = new JLabel("State: " + main.currentUser.getState());
+        stateLabel.setBackground(Color.WHITE);
+        stateLabel.setOpaque(true);
+        gbc.gridx = 1;
+        gbc.gridy = 6;
 
-                panel.add(stateLabel, gbc);
+        panel.add(stateLabel, gbc);
 
-                JLabel zipLabel = new JLabel("Zip: " + main.currentUser.getZip());
-                gbc.gridx = 1;
-                gbc.gridy = 7;
-                panel.add(zipLabel, gbc);
+        JLabel zipLabel = new JLabel("Zip: " + main.currentUser.getZip());
+        zipLabel.setBackground(Color.WHITE);
+        zipLabel.setOpaque(true);
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        panel.add(zipLabel, gbc);
 
 
         gbc.insets = new Insets(5, 5, 5, 5);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-
-        panel.add(new JLabel("Thank You For The Order"), gbc);
+        JLabel thankYouLabel = new JLabel("Thank You For The Order");
+        thankYouLabel.setBackground(Color.WHITE);
+        thankYouLabel.setOpaque(true);
+        panel.add(thankYouLabel, gbc);
         gbc.gridx = 1;
         gbc.gridy = 1;
 
-        panel.add(new JLabel("Order #: 198"), gbc);
+        JLabel orderNumLabel = new JLabel("Order #: 198");
+        orderNumLabel.setBackground(Color.WHITE);
+        orderNumLabel.setOpaque(true);
+        panel.add(orderNumLabel, gbc);
 
 
         gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel deliveryLabel = new JLabel("Delivery Method: " + main.deliveryMethod);
+        deliveryLabel.setBackground(Color.WHITE);
+        deliveryLabel.setOpaque(true);
         gbc.gridx = 1;
         gbc.gridy = 8;
 
         panel.add(deliveryLabel, gbc);
 
         JLabel paymentLabel = new JLabel("Payment Method: " + main.paymentMethod);
+        paymentLabel.setBackground(Color.WHITE);
+        paymentLabel.setOpaque(true);
         gbc.gridx = 1;
         gbc.gridy = 9;
         panel.add(paymentLabel, gbc);
         gbc.insets = new Insets(25, 5, 25, 5);
         JLabel checkLineLabel = new JLabel("x____________________________________________________________________");
+        checkLineLabel.setBackground(Color.WHITE);
+        checkLineLabel.setOpaque(true);
         gbc.gridx = 1;
         gbc.gridy = 10;
         if (main.paymentMethod.equals("Card")) {
@@ -142,7 +165,9 @@ public class ReceiptPanel extends JPanel {
             panel.add(pizzaImage, gbc);
 
             for (int j = 0; j < itemDetails.size(); j++) {
-                JLabel itemDetailslabel = new JLabel(itemDetails.get(j).equals("None")?"":itemDetails.get(j));
+                JLabel itemDetailslabel = new JLabel(itemDetails.get(j).equals("None") ? "" : itemDetails.get(j));
+                itemDetailslabel.setBackground(Color.WHITE);
+                itemDetailslabel.setOpaque(true);
                 gbc.gridx = 1;
                 gbc.gridy = itemCount + 13;
                 gbc.gridheight = 1;
@@ -152,6 +177,8 @@ public class ReceiptPanel extends JPanel {
             }
 
             JLabel quantitylabel = new JLabel("x" + quantity.toString());
+            quantitylabel.setBackground(Color.WHITE);
+            quantitylabel.setOpaque(true);
             gbc.gridx = 3;
             gbc.gridy = i * rowHeight + 13;
             gbc.gridheight = rowHeight;
@@ -162,6 +189,8 @@ public class ReceiptPanel extends JPanel {
             totalPrice += price;
 
             JLabel pricelabel = new JLabel("$" + price);
+            pricelabel.setBackground(Color.WHITE);
+            pricelabel.setOpaque(true);
             gbc.gridx = 5;
             gbc.gridy = i * rowHeight + 13;
             gbc.gridheight = rowHeight;
@@ -171,6 +200,8 @@ public class ReceiptPanel extends JPanel {
 
         }
         JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
+        totalPriceLabel.setBackground(Color.WHITE);
+        totalPriceLabel.setOpaque(true);
         gbc.gridx = 5;
         gbc.gridy = arraySize * rowHeight + 14;
         gbc.gridheight = rowHeight;
@@ -183,7 +214,7 @@ public class ReceiptPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                main.cart= new ArrayList<>();
+                main.cart = new ArrayList<>();
                 main.showScreen(Screen.MENU);
             }
         });
