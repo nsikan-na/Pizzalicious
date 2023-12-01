@@ -2,11 +2,19 @@ package org.example.panels;
 
 import org.example.Main;
 import org.example.util.Screen;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class CreateANewUserPanel extends JPanel {
     public CreateANewUserPanel(Main navigation) {
@@ -131,6 +139,49 @@ public class CreateANewUserPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                String nameInput= nameField.getText();
+                String phoneInput=phoneField.getText();
+                String streetInput= streetField.getText();
+                String cityInput= cityField.getText();
+                String stateInput=stateField.getText();
+                String zipCodeInput= zipCodeField.getText();
+                String accountTypeInput=(String)accountTypeField.getSelectedItem();
+                String usernameInput = usernameField.getText();
+                String passwordInput = passwordField.getText();
+                try {
+                    InputStream inputStream = getClass().getResourceAsStream("/db/Users.json");
+
+                    if (inputStream == null) {
+                        System.err.println("Unable to find Users.json in the resources");
+                        return;
+                    }
+
+                    try (InputStreamReader reader = new InputStreamReader(inputStream)) {
+                        JSONParser jsonParser = new JSONParser();
+                        JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
+
+                      JSONObject newData =  new JSONObject();
+                      newData.put("name",nameInput);
+                      newData.put("phone",phoneInput);
+                      newData.put("street",streetInput);
+                      newData.put("city",cityInput);
+                      newData.put("state",stateInput);
+                      newData.put("zipCode",zipCodeInput);
+                      newData.put("accountType",accountTypeInput);
+                      newData.put("username",usernameInput);
+                      newData.put("password",passwordInput);
+                      jsonArray.add(newData);
+                        try (FileWriter fileWriter = new FileWriter("src/main/resources/db/Users.json")) {
+                            fileWriter.write(jsonArray.toJSONString());
+                            System.out.println("Data appended to the existing JSON file successfully!");
+                        } catch (IOException err) {
+                            err.printStackTrace();
+                        }
+                    }
+                } catch (IOException | ParseException err) {
+                    err.printStackTrace();
+                    err.printStackTrace();
+                }
                 navigation.showScreen(Screen.LOGIN);
             }
         });

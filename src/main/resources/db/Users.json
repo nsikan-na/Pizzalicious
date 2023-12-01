@@ -1,13 +1,13 @@
 [
   {
-    "id": 1234567890,
-    "username": "John",
-    "password": "Doe",
-    "name": "John Doe",
-    "street": "123 Lane Street",
-    "phone": 1234567890,
-    "city": "Dogville",
+    "zipCode": "30902",
+    "password": "pass",
+    "phone": "123456789",
+    "city": "ATL",
+    "street": "elm street",
+    "accountType": "VISA",
+    "name": "Shane",
     "state": "GA",
-    "zip": 30039
+    "username": "user"
   }
 ]
