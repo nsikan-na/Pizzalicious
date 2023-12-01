@@ -5,6 +5,8 @@ import org.example.util.CartItem;
 import org.example.util.Screen;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 public class CustomizeBeveragePanel extends JPanel {
 
     private double myPrice = 1;
+    private double additional = 0;
 
     public CustomizeBeveragePanel(Main main) {
         setLayout(new BorderLayout());
@@ -43,6 +46,7 @@ public class CustomizeBeveragePanel extends JPanel {
         gbc.gridy = 1;
         panel.add(softDrinkField, gbc);
 
+
         String[] sizeOptions = {"Small", "Medium", "Large"};
         JComboBox<String> sizeField = new JComboBox<>(sizeOptions);
 
@@ -54,7 +58,9 @@ public class CustomizeBeveragePanel extends JPanel {
         gbc.gridy = 2;
         panel.add(sizeField, gbc);
 
+
         JTextField quantityField = new JTextField(10);
+        quantityField.setText("1");
 
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -115,7 +121,7 @@ public class CustomizeBeveragePanel extends JPanel {
                 itemDetailsArr.add("None");
                 itemDetailsArr.add("None");
                 itemDetailsArr.add("None");
-                main.addToCart(new CartItem("drink", itemDetailsArr, 5, quantityInput));
+                main.addToCart(new CartItem("drink", itemDetailsArr, myPrice + additional, quantityInput));
                 main.printCart();
                 main.showScreen(Screen.MENU);
             }
@@ -124,6 +130,47 @@ public class CustomizeBeveragePanel extends JPanel {
         gbc.gridx = 3;
         gbc.gridy = 11;
         panel.add(submitButton, gbc);
+
+        sizeField.addActionListener(e -> {
+            String sizeInput = (String) sizeField.getSelectedItem();
+            double quantityInput = Double.parseDouble(quantityField.getText());
+            if (sizeInput.equals("Small")) {
+                additional = 0;
+            }
+            if (sizeInput.equals("Medium")) {
+                additional = 1;
+            }
+            if (sizeInput.equals("Large")) {
+                additional = 2;
+            }
+            double x = myPrice + additional;
+            double price = x * quantityInput;
+            priceLabel.setText("$" + price);
+        });
+        quantityField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                handleTextChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                handleTextChange();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                handleTextChange();
+            }
+
+            private void handleTextChange() {
+                    double quantityInput = Double.parseDouble(quantityField.getText());
+                    double x = myPrice + additional;
+                    double price = x * quantityInput;
+                    priceLabel.setText("$" + price);
+
+            }
+        });
 
         return panel;
     }
