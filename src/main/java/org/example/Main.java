@@ -44,9 +44,6 @@ public class Main {
         CreateANewUserPanel createANewUserPanel = new CreateANewUserPanel(this);
         frame.add(createANewUserPanel, Screen.CREATE_A_NEW_USER.toString());
 
-        MenuPanel menuPanel = new MenuPanel(this);
-        frame.add(menuPanel, Screen.MENU.toString());
-
         CustomizePizzaPanel customizePizzaPanel = new CustomizePizzaPanel(this);
         frame.add(customizePizzaPanel, Screen.CUSTOMIZE_PIZZA.toString());
 

@@ -33,7 +33,7 @@ public class MenuPanel extends JPanel {
         });
         buttonPanel.add(cartLabel);
 
-        JLabel welcomeLabel = new JLabel("Hi, Mark");
+        JLabel welcomeLabel = new JLabel("Hi, "+main.currentUser.getName());
         welcomeLabel.setHorizontalAlignment(JLabel.RIGHT);
         buttonPanel.add(welcomeLabel);
 

@@ -1,7 +1,7 @@
 package org.example.util;
 
 public class CurrentUser {
-    private String name;
+    private String name="";
     private String phone;
     private String street;
     private String city;

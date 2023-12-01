@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class LoginPanel extends JPanel {
+    private MenuPanel menuPanel;
     public LoginPanel(Main main) {
         setLayout(new BorderLayout());
 
@@ -90,10 +91,12 @@ public class LoginPanel extends JPanel {
                             String username = (String) jsonObject.get("username");
                             String password = (String) jsonObject.get("password");
                             if (username.equals(usernameInput) && password.equals(passwordInput)) {
-                                main.showScreen(Screen.MENU);
+
                                 main.currentUser = new CurrentUser((String) jsonObject.get("name"), (String) jsonObject.get("phone"), (String) jsonObject.get("street"), (String) jsonObject.get("city"), (String) jsonObject.get("state"), (String) jsonObject.get("zipCode"));
+                                menuPanel = new MenuPanel(main);
+                                main.frame.add(menuPanel, Screen.MENU.toString());
+                                main.showScreen(Screen.MENU);
                             }
-                            main.showScreen(Screen.MENU);//delete
                         }
                     }
                 } catch (IOException | ParseException e) {

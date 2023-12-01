@@ -31,7 +31,7 @@ public class CustomizePizzaPanel extends JPanel {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        String[] sizeOptions = {"Small", "Medium(+1)", "Large(+2)", "Extra Large(+4)"};
+        String[] sizeOptions = {"Small", "Medium", "Large", "Extra Large"};
         JComboBox<String> sizeField = new JComboBox<>(sizeOptions);
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
@@ -42,7 +42,7 @@ public class CustomizePizzaPanel extends JPanel {
         gbc.gridy = 1;
         panel.add(sizeField, gbc);
 
-        String[] crustOptions = {"Thin", "Thick (+1)", "Stuffed(+2)"};
+        String[] crustOptions = {"Thin", "Thick ", "Stuffed"};
         JComboBox<String> crustField = new JComboBox<>(crustOptions);
 
         gbc.gridx = 0;
