@@ -22,7 +22,7 @@ public class ReceiptPanel extends JPanel {
     private int rowHeight = 6;
     private int arraySize = 0;
 
-    public ReceiptPanel(Main navigation) {
+    public ReceiptPanel(Main main) {
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Receipt");
@@ -30,10 +30,10 @@ public class ReceiptPanel extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        add(createMainPanel(navigation), BorderLayout.CENTER);
+        add(createMainPanel(main), BorderLayout.CENTER);
     }
 
-    private JPanel createMainPanel(Main navigation) {
+    private JPanel createMainPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         try {
@@ -96,126 +96,99 @@ public class ReceiptPanel extends JPanel {
 
         panel.add(new JLabel("Order #: 198"), gbc);
 
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/db/Payment_Delivery_Method.json");
-            if (inputStream == null) {
-                System.err.println("Unable to find Payment_Delivery_Method.json in the resources");
-            }
 
-            try (InputStreamReader reader = new InputStreamReader(inputStream)) {
-                JSONParser jsonParser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-                gbc.insets = new Insets(5, 5, 5, 5);
+        JLabel deliveryLabel = new JLabel("Delivery Method: " + main.deliveryMethod);
+        gbc.gridx = 1;
+        gbc.gridy = 8;
 
-                JLabel deliveryLabel = new JLabel("Delivery Method: " + jsonObject.get("delivery"));
-                gbc.gridx = 1;
-                gbc.gridy = 8;
+        panel.add(deliveryLabel, gbc);
 
-                panel.add(deliveryLabel, gbc);
-
-                JLabel paymentLabel = new JLabel("Payment Method: " + jsonObject.get("payment"));
-                gbc.gridx = 1;
-                gbc.gridy = 9;
-                panel.add(paymentLabel, gbc);
-                gbc.insets = new Insets(25, 5, 25, 5);
-                JLabel checkLineLabel = new JLabel("x____________________________________________________________________");
-                gbc.gridx = 1;
-                gbc.gridy = 10;
-                if(jsonObject.get("payment").equals("Card")){
-                    panel.add(checkLineLabel, gbc);
-                }
-                gbc.insets = new Insets(5, 5, 5, 5);
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        JLabel paymentLabel = new JLabel("Payment Method: " + main.paymentMethod);
+        gbc.gridx = 1;
+        gbc.gridy = 9;
+        panel.add(paymentLabel, gbc);
+        gbc.insets = new Insets(25, 5, 25, 5);
+        JLabel checkLineLabel = new JLabel("x____________________________________________________________________");
+        gbc.gridx = 1;
+        gbc.gridy = 10;
+        if (main.paymentMethod.equals("Card")) {
+            panel.add(checkLineLabel, gbc);
         }
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/db/Cart.json");
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-            if (inputStream == null) {
-                System.err.println("Unable to find Cart.json in the resources");
+
+        arraySize = main.getCartSize();
+
+        for (int i = 0; i < arraySize; i++) {
+            String item = main.getCart().get(i).getItem();
+            ArrayList<String> itemDetails = main.getCart().get(i).getItemDetails();
+            Double pricePerItem = main.getCart().get(i).getPricePerItem();
+            Integer quantity = main.getCart().get(i).getQuantity();
+
+
+            ImageIcon originalIcon = new ImageIcon(CustomizePizzaPanel.class.getResource(item.equals("pizza") ? "/images/pizzaM3.jpg" : "/images/drink.jpg"));
+
+            int newWidth = 150;
+            int newHeight = 150;
+
+
+            Image scaledImage = originalIcon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+            JLabel pizzaImage = new JLabel(scaledIcon);
+
+            gbc.gridx = 0;
+            gbc.gridy = i * rowHeight + 13;
+            gbc.gridheight = rowHeight;
+            gbc.insets = new Insets(5, 25, 5, 25);
+
+            panel.add(pizzaImage, gbc);
+
+            for (int j = 0; j < itemDetails.size(); j++) {
+                JLabel itemDetailslabel = new JLabel(itemDetails.get(j));
+                gbc.gridx = 1;
+                gbc.gridy = itemCount + 13;
+                gbc.gridheight = 1;
+
+                panel.add(itemDetailslabel, gbc);
+                itemCount++;
             }
 
-            try (InputStreamReader reader = new InputStreamReader(inputStream)) {
-                JSONParser jsonParser = new JSONParser();
-                JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
-                arraySize = jsonArray.size();
+            JLabel quantitylabel = new JLabel("x" + quantity.toString());
+            gbc.gridx = 3;
+            gbc.gridy = i * rowHeight + 13;
+            gbc.gridheight = rowHeight;
+            gbc.gridwidth = 1;
+            panel.add(quantitylabel, gbc);
 
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    String item = (String) jsonObject.get("item");
-                    ArrayList<String> itemDetails = (ArrayList) jsonObject.get("itemDetails");
-                    Long pricePerItem = (Long) jsonObject.get("pricePerItem");
-                    Long quantity = (Long) jsonObject.get("quantity");
+            double price = quantity * pricePerItem;
+            totalPrice += price;
 
-                    System.out.println(jsonObject.toJSONString());
+            JLabel pricelabel = new JLabel("$" + price);
+            gbc.gridx = 5;
+            gbc.gridy = i * rowHeight + 13;
+            gbc.gridheight = rowHeight;
 
-
-                    ImageIcon originalIcon = new ImageIcon(CustomizePizzaPanel.class.getResource(item.equals("pizza") ? "/images/pizzaM3.jpg" : "/images/drink.jpg"));
-
-                    int newWidth = 150;
-                    int newHeight = 150;
+            panel.add(pricelabel, gbc);
 
 
-                    Image scaledImage = originalIcon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-                    ImageIcon scaledIcon = new ImageIcon(scaledImage);
-
-                    JLabel pizzaImage = new JLabel(scaledIcon);
-
-                    gbc.gridx = 0;
-                    gbc.gridy = i * rowHeight + 13;
-                    gbc.gridheight = rowHeight;
-                    gbc.insets = new Insets(5, 25, 5, 25);
-
-                    panel.add(pizzaImage, gbc);
-
-                    for (int j = 0; j < itemDetails.size(); j++) {
-                        JLabel itemDetailslabel = new JLabel(itemDetails.get(j));
-                        gbc.gridx = 1;
-                        gbc.gridy = itemCount + 13;
-                        gbc.gridheight = 1;
-
-                        panel.add(itemDetailslabel, gbc);
-                        itemCount++;
-                    }
-
-                    JLabel quantitylabel = new JLabel("x" + quantity.toString());
-                    gbc.gridx = 3;
-                    gbc.gridy = i * rowHeight + 13;
-                    gbc.gridheight = rowHeight;
-                    gbc.gridwidth = 1;
-                    panel.add(quantitylabel, gbc);
-
-                    Long price = quantity * pricePerItem;
-                    totalPrice += price;
-
-                    JLabel pricelabel = new JLabel("$" + price.toString());
-                    gbc.gridx = 5;
-                    gbc.gridy = i * rowHeight + 13;
-                    gbc.gridheight = rowHeight;
-
-                    panel.add(pricelabel, gbc);
-
-
-                }
-                JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
-                gbc.gridx = 5;
-                gbc.gridy = arraySize * rowHeight + 14;
-                gbc.gridheight = rowHeight;
-
-                panel.add(totalPriceLabel, gbc);
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
         }
+        JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
+        gbc.gridx = 5;
+        gbc.gridy = arraySize * rowHeight + 14;
+        gbc.gridheight = rowHeight;
+
+        panel.add(totalPriceLabel, gbc);
+
 
         JButton submitButton = new JButton("Start New Order");
 
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.MENU);
+                main.showScreen(Screen.MENU);
             }
         });
 

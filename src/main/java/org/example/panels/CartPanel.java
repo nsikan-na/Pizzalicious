@@ -43,10 +43,7 @@ public class CartPanel extends JPanel {
             ArrayList<String> itemDetails = main.getCart().get(i).getItemDetails();
             Double pricePerItem = main.getCart().get(i).getPricePerItem();
             Integer quantity = main.getCart().get(i).getQuantity();
-            System.out.println(item);
-            System.out.println(itemDetails);
-            System.out.println(pricePerItem);
-            System.out.println(quantity);
+
 
             ImageIcon originalIcon = new ImageIcon(CustomizePizzaPanel.class.getResource(item.equals("pizza") ? "/images/pizzaM3.jpg" : "/images/drink.jpg"));
 

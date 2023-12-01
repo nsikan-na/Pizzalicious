@@ -51,17 +51,8 @@ public class Main {
         CustomizeBeveragePanel customizeBeveragePanel = new CustomizeBeveragePanel(this);
         frame.add(customizeBeveragePanel, Screen.CUSTOMIZE_BEVERAGE.toString());
 
-//        CartPanel cartPanel = new CartPanel(this);
-//        frame.add(cartPanel, Screen.CART.toString());
-
         PaymentDeliveryPanel paymentDeliveryPanel = new PaymentDeliveryPanel(this);
         frame.add(paymentDeliveryPanel, Screen.PAYMENT_DELIVERY.toString());
-
-        ReviewOrderPanel reviewOrderPanel = new ReviewOrderPanel(this);
-        frame.add(reviewOrderPanel, Screen.REVIEW_ORDER.toString());
-
-        ReceiptPanel receiptPanel = new ReceiptPanel(this);
-        frame.add(receiptPanel, Screen.RECEIPT.toString());
 
         frame.setVisible(true);
     }

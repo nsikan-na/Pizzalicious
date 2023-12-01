@@ -17,12 +17,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class ReviewOrderPanel extends JPanel {
+    private ReceiptPanel receiptPanel;
     private int itemCount = 0;
     private long totalPrice = 0;
     private int rowHeight = 6;
     private int arraySize = 0;
 
-    public ReviewOrderPanel(Main navigation) {
+    public ReviewOrderPanel(Main main) {
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Review Order");
@@ -31,11 +32,11 @@ public class ReviewOrderPanel extends JPanel {
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
 
-        add(createMainPanel(navigation), BorderLayout.CENTER);
+        add(createMainPanel(main), BorderLayout.CENTER);
 
     }
 
-    private JPanel createMainPanel(Main navigation) {
+    private JPanel createMainPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         try {
@@ -87,54 +88,30 @@ public class ReviewOrderPanel extends JPanel {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/db/Payment_Delivery_Method.json");
-            if (inputStream == null) {
-                System.err.println("Unable to find Payment_Delivery_Method.json in the resources");
-            }
 
-            try (InputStreamReader reader = new InputStreamReader(inputStream)) {
-                JSONParser jsonParser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 
                 gbc.insets = new Insets(5, 5, 5, 5);
 
-                JLabel deliveryLabel = new JLabel("Delivery Method: " + jsonObject.get("delivery"));
+                JLabel deliveryLabel = new JLabel("Delivery Method: " + main.deliveryMethod);
                 gbc.gridx = 1;
                 gbc.gridy = 6;
 
                 panel.add(deliveryLabel, gbc);
 
-                JLabel paymentLabel = new JLabel("Payment Method: " + jsonObject.get("payment"));
+                JLabel paymentLabel = new JLabel("Payment Method: " + main.paymentMethod);
                 gbc.gridx = 1;
                 gbc.gridy = 7;
                 panel.add(paymentLabel, gbc);
 
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/db/Cart.json");
 
-            if (inputStream == null) {
-                System.err.println("Unable to find Cart.json in the resources");
-            }
 
-            try (InputStreamReader reader = new InputStreamReader(inputStream)) {
-                JSONParser jsonParser = new JSONParser();
-                JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
-                arraySize = jsonArray.size();
+        arraySize = main.getCartSize();
 
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                    String item = (String) jsonObject.get("item");
-                    ArrayList<String> itemDetails = (ArrayList) jsonObject.get("itemDetails");
-                    Long pricePerItem = (Long) jsonObject.get("pricePerItem");
-                    Long quantity = (Long) jsonObject.get("quantity");
-
-                    System.out.println(jsonObject.toJSONString());
-
+        for (int i = 0; i < arraySize; i++) {
+            String item = main.getCart().get(i).getItem();
+            ArrayList<String> itemDetails = main.getCart().get(i).getItemDetails();
+            Double pricePerItem = main.getCart().get(i).getPricePerItem();
+            Integer quantity = main.getCart().get(i).getQuantity();
 
                     ImageIcon originalIcon = new ImageIcon(CustomizePizzaPanel.class.getResource(item.equals("pizza") ? "/images/pizzaM3.jpg" : "/images/drink.jpg"));
 
@@ -164,17 +141,17 @@ public class ReviewOrderPanel extends JPanel {
                         itemCount++;
                     }
 
-                    JLabel quantitylabel = new JLabel("x" + quantity.toString());
+                    JLabel quantitylabel = new JLabel("x" + quantity);
                     gbc.gridx = 3;
                     gbc.gridy = i * rowHeight + 8;
                     gbc.gridheight = rowHeight;
                     gbc.gridwidth = 1;
                     panel.add(quantitylabel, gbc);
 
-                    Long price = quantity * pricePerItem;
+                    double price = quantity * pricePerItem;
                     totalPrice += price;
 
-                    JLabel pricelabel = new JLabel("$" + price.toString());
+                    JLabel pricelabel = new JLabel("$" + price);
                     gbc.gridx = 5;
                     gbc.gridy = i * rowHeight + 8;
                     gbc.gridheight = rowHeight;
@@ -189,10 +166,6 @@ public class ReviewOrderPanel extends JPanel {
                 gbc.gridheight = rowHeight;
 
                 panel.add(totalPriceLabel, gbc);
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
 
         JLabel backButton = new JLabel("Back to Menu");
 
@@ -201,7 +174,7 @@ public class ReviewOrderPanel extends JPanel {
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.MENU);
+                main.showScreen(Screen.MENU);
             }
         });
         gbc.gridx = 0;
@@ -213,7 +186,9 @@ public class ReviewOrderPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.RECEIPT);
+                receiptPanel = new ReceiptPanel(main);
+                main.frame.add(receiptPanel, Screen.RECEIPT.toString());
+                main.showScreen(Screen.RECEIPT);
             }
         });
 

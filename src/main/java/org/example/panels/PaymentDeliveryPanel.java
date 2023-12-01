@@ -12,14 +12,16 @@ import java.awt.event.MouseEvent;
 
 
 public class PaymentDeliveryPanel extends JPanel {
+
+    private ReviewOrderPanel reviewOrderPanel;
     private JComboBox<String> paymentMethodField;
     private CardLayout cardLayout;
     private JPanel cardPanel;
 
-    public PaymentDeliveryPanel(Main navigation) {
+    public PaymentDeliveryPanel(Main main) {
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Payment");
+        JLabel titleLabel = new JLabel("Payment Method");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -37,7 +39,13 @@ public class PaymentDeliveryPanel extends JPanel {
 
         String[] deliveryMethodOptions = {"Pickup", "Delivery"};
         JComboBox<String> deliveryMethodField = new JComboBox<>(deliveryMethodOptions);
-
+        deliveryMethodField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.deliveryMethod = (String) deliveryMethodField.getSelectedItem();
+            }
+        });
+        main.deliveryMethod = "Pickup";
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -55,14 +63,19 @@ public class PaymentDeliveryPanel extends JPanel {
         gbc.gridy = 2;
         gbc.insets = new Insets(5, 5, 5, 5);
         inputPanel.add(paymentMethodField, gbc);
-
+        paymentMethodField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.paymentMethod = (String) paymentMethodField.getSelectedItem();
+            }
+        });
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
-        cardPanel.add(createCashPanel(navigation), "Cash");
-        cardPanel.add(createCheckPanel(navigation), "Check");
-        cardPanel.add(createCardPanel(navigation), "Card");
-
+        cardPanel.add(createCashPanel(main), "Cash");
+        cardPanel.add(createCheckPanel(main), "Check");
+        cardPanel.add(createCardPanel(main), "Card");
+        main.paymentMethod = "Cash";
         this.add(inputPanel, BorderLayout.LINE_START);
         this.add(cardPanel, BorderLayout.CENTER);
 
@@ -81,7 +94,7 @@ public class PaymentDeliveryPanel extends JPanel {
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.MENU);
+                main.showScreen(Screen.MENU);
             }
         });
         gbc.gridx = 1;
@@ -90,7 +103,7 @@ public class PaymentDeliveryPanel extends JPanel {
         inputPanel.add(backButton, gbc);
     }
 
-    public JPanel createCardPanel(Main navigation) {
+    public JPanel createCardPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -164,14 +177,17 @@ public class PaymentDeliveryPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.REVIEW_ORDER);
+
+                reviewOrderPanel = new ReviewOrderPanel(main);
+                main.frame.add(reviewOrderPanel, Screen.REVIEW_ORDER.toString());
+                main.showScreen(Screen.REVIEW_ORDER);
             }
         });
 
         return panel;
     }
 
-    public JPanel createCheckPanel(Main navigation) {
+    public JPanel createCheckPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -208,14 +224,16 @@ public class PaymentDeliveryPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.REVIEW_ORDER);
+                reviewOrderPanel = new ReviewOrderPanel(main);
+                main.frame.add(reviewOrderPanel, Screen.REVIEW_ORDER.toString());
+                main.showScreen(Screen.REVIEW_ORDER);
             }
         });
 
         return panel;
     }
 
-    public JPanel createCashPanel(Main navigation) {
+    public JPanel createCashPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -228,7 +246,10 @@ public class PaymentDeliveryPanel extends JPanel {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.REVIEW_ORDER);
+
+                reviewOrderPanel = new ReviewOrderPanel(main);
+                main.frame.add(reviewOrderPanel, Screen.REVIEW_ORDER.toString());
+                main.showScreen(Screen.REVIEW_ORDER);
             }
         });
 
