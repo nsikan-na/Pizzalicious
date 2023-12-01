@@ -2,8 +2,8 @@ package org.example;
 
 import org.example.panels.*;
 import org.example.util.CartItem;
+import org.example.util.CurrentUser;
 import org.example.util.Screen;
-import org.json.simple.JSONArray;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,8 @@ public class Main {
     public String deliveryMethod=null;
 
     public String paymentMethod=null;
+
+    public CurrentUser currentUser;
 
     public static void main(String[] args) {
 

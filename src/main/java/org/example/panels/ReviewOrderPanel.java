@@ -2,18 +2,13 @@ package org.example.panels;
 
 import org.example.Main;
 import org.example.util.Screen;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
 import java.util.ArrayList;
 
 public class ReviewOrderPanel extends JPanel {
@@ -39,55 +34,41 @@ public class ReviewOrderPanel extends JPanel {
     private JPanel createMainPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/db/Current_User.json");
-            if (inputStream == null) {
-                System.err.println("Unable to find Payment_Delivery_Method.json in the resources");
-            }
-
-            try (InputStreamReader reader = new InputStreamReader(inputStream)) {
-                JSONParser jsonParser = new JSONParser();
-                JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
 
                 gbc.insets = new Insets(5, 5, 5, 5);
 
-                JLabel nameLabel = new JLabel("Name: " + jsonObject.get("name"));
+                JLabel nameLabel = new JLabel("Name: " + main.currentUser.getName());
                 gbc.gridx = 1;
                 gbc.gridy = 0;
 
                 panel.add(nameLabel, gbc);
 
-                JLabel phoneLabel = new JLabel("Phone: " + jsonObject.get("phone"));
+                JLabel phoneLabel = new JLabel("Phone: " + main.currentUser.getPhone());
                 gbc.gridx = 1;
                 gbc.gridy = 1;
                 panel.add(phoneLabel, gbc);
 
-                JLabel streetLabel = new JLabel("Street: " + jsonObject.get("street"));
+                JLabel streetLabel = new JLabel("Street: " + main.currentUser.getStreet());
                 gbc.gridx = 1;
                 gbc.gridy = 2;
 
                 panel.add(streetLabel, gbc);
 
-                JLabel cityLabel = new JLabel("City: " + jsonObject.get("city"));
+                JLabel cityLabel = new JLabel("City: " + main.currentUser.getCity());
                 gbc.gridx = 1;
                 gbc.gridy = 3;
                 panel.add(cityLabel, gbc);
 
-                JLabel stateLabel = new JLabel("State: " + jsonObject.get("state"));
+                JLabel stateLabel = new JLabel("State: " + main.currentUser.getState());
                 gbc.gridx = 1;
                 gbc.gridy = 4;
 
                 panel.add(stateLabel, gbc);
 
-                JLabel zipLabel = new JLabel("Zip: " + jsonObject.get("zip"));
+                JLabel zipLabel = new JLabel("Zip: " + main.currentUser.getZip());
                 gbc.gridx = 1;
                 gbc.gridy = 5;
                 panel.add(zipLabel, gbc);
-
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
 
 
                 gbc.insets = new Insets(5, 5, 5, 5);

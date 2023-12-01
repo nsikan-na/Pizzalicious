@@ -1,6 +1,7 @@
 package org.example.panels;
 
 import org.example.Main;
+import org.example.util.CurrentUser;
 import org.example.util.Screen;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,7 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class LoginPanel extends JPanel {
-    public LoginPanel(Main navigation) {
+    public LoginPanel(Main main) {
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Login");
@@ -89,11 +90,10 @@ public class LoginPanel extends JPanel {
                             String username = (String) jsonObject.get("username");
                             String password = (String) jsonObject.get("password");
                             if (username.equals(usernameInput) && password.equals(passwordInput)) {
-
-
-                                navigation.showScreen(Screen.MENU);
+                                main.showScreen(Screen.MENU);
+                                main.currentUser = new CurrentUser((String) jsonObject.get("name"), (String) jsonObject.get("phone"), (String) jsonObject.get("street"), (String) jsonObject.get("city"), (String) jsonObject.get("state"), (String) jsonObject.get("zipCode"));
                             }
-                            navigation.showScreen(Screen.MENU);//delete
+                            main.showScreen(Screen.MENU);//delete
                         }
                     }
                 } catch (IOException | ParseException e) {
@@ -106,7 +106,7 @@ public class LoginPanel extends JPanel {
         createNewUserLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.CREATE_A_NEW_USER);
+                main.showScreen(Screen.CREATE_A_NEW_USER);
             }
         });
     }
