@@ -52,7 +52,7 @@ public class MenuPanel extends JPanel {
         topPanel.add(buttonPanel, BorderLayout.EAST);
 
         add(topPanel, BorderLayout.NORTH);
-
+        setBackground(Color.WHITE);
         add(createPizzaPanel(main), BorderLayout.LINE_START);
         add(createBeveragesPanel(main), BorderLayout.LINE_END);
     }
@@ -60,7 +60,7 @@ public class MenuPanel extends JPanel {
 
     private JPanel createPizzaPanel(Main navigation) {
         JPanel pizzaPanel = new JPanel(new GridBagLayout());
-
+        pizzaPanel.setBackground(new Color(255, 255, 255, 0));
         ImageIcon originalPizzaIcon = new ImageIcon(CustomizePizzaPanel.class.getResource("/images/pizzaM3.jpg"));
 
         int newWidth = 350;
@@ -95,7 +95,7 @@ public class MenuPanel extends JPanel {
     }
     private JPanel createBeveragesPanel(Main navigation) {
         JPanel beveragePanel = new JPanel(new GridBagLayout());
-
+        beveragePanel.setBackground(new Color(255, 255, 255, 0));
         ImageIcon originalBeveragePanelIcon = new ImageIcon(CustomizePizzaPanel.class.getResource("/images/drink.jpg"));
 
         int newWidth = 350;
@@ -128,5 +128,10 @@ public class MenuPanel extends JPanel {
             }
         });
         return beveragePanel;
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(new ImageIcon(getClass().getResource("/images/back2.png")).getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }
