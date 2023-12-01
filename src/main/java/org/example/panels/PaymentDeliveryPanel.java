@@ -21,11 +21,14 @@ public class PaymentDeliveryPanel extends JPanel {
     public PaymentDeliveryPanel(Main main) {
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Payment Method");
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(Color.WHITE);
+        JLabel titleLabel = new JLabel("Payment/Delivery");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
-
+        topPanel.add(titleLabel, BorderLayout.CENTER);
+        this.setBackground(Color.WHITE);
+        add(topPanel, BorderLayout.NORTH);
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 600, 5, 5);
@@ -101,14 +104,14 @@ public class PaymentDeliveryPanel extends JPanel {
         });
         gbc.gridx = 1;
         gbc.gridy = 3;
-
+        inputPanel.setBackground(new Color(255, 255, 255, 0));
         inputPanel.add(backButton, gbc);
     }
 
     public JPanel createCardPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
+        panel.setBackground(new Color(255, 255, 255, 0));
         String[] accountTypeOptions = {"VISA", "MASTERCARD"};
         JComboBox<String> accountTypeField = new JComboBox<>(accountTypeOptions);
 
@@ -192,7 +195,7 @@ public class PaymentDeliveryPanel extends JPanel {
     public JPanel createCheckPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
+        panel.setBackground(new Color(255, 255, 255, 0));
         JTextField accountNumberField = new JTextField(15);
 
         gbc.gridx = 0;
@@ -238,7 +241,7 @@ public class PaymentDeliveryPanel extends JPanel {
     public JPanel createCashPanel(Main main) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
+        panel.setBackground(new Color(255, 255, 255, 0));
 
         JButton submitButton = new JButton("Review Order");
         gbc.gridx = 1;
@@ -256,5 +259,10 @@ public class PaymentDeliveryPanel extends JPanel {
         });
 
         return panel;
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(new ImageIcon(getClass().getResource("/images/back2.png")).getImage(), 0, 0, getWidth(), getHeight(), this);
     }
 }

@@ -19,7 +19,7 @@ public class MenuPanel extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         topPanel.add(titleLabel, BorderLayout.CENTER);
-
+        this.setBackground(Color.WHITE);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel cartLabel = new JLabel("View Cart");
         cartLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
