@@ -276,7 +276,6 @@ public class CustomizePizzaPanel extends JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                handleTextChange();
             }
 
             @Override

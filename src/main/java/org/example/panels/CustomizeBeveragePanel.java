@@ -155,7 +155,6 @@ public class CustomizeBeveragePanel extends JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                handleTextChange();
             }
 
             @Override
