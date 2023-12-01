@@ -48,8 +48,8 @@ public class Main {
         CustomizeBeveragePanel customizeBeveragePanel = new CustomizeBeveragePanel(this);
         frame.add(customizeBeveragePanel, Screen.CUSTOMIZE_BEVERAGE.toString());
 
-        CartPanel cartPanel = new CartPanel(this);
-        frame.add(cartPanel, Screen.CART.toString());
+//        CartPanel cartPanel = new CartPanel(this);
+//        frame.add(cartPanel, Screen.CART.toString());
 
         PaymentDeliveryPanel paymentDeliveryPanel = new PaymentDeliveryPanel(this);
         frame.add(paymentDeliveryPanel, Screen.PAYMENT_DELIVERY.toString());

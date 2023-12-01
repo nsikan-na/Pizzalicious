@@ -9,7 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MenuPanel extends JPanel {
-    public MenuPanel(Main navigation) {
+    private CartPanel cartPanel;
+    public MenuPanel(Main main) {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -25,7 +26,9 @@ public class MenuPanel extends JPanel {
         cartLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.CART);
+                cartPanel = new CartPanel(main);
+                main.frame.add(cartPanel, Screen.CART.toString());
+                main.showScreen(Screen.CART);
             }
         });
         buttonPanel.add(cartLabel);
@@ -39,7 +42,7 @@ public class MenuPanel extends JPanel {
         logoutLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.LOGIN);
+                main.showScreen(Screen.LOGIN);
             }
         });
         buttonPanel.add(logoutLabel);
@@ -50,8 +53,8 @@ public class MenuPanel extends JPanel {
 
         add(topPanel, BorderLayout.NORTH);
 
-        add(createPizzaPanel(navigation), BorderLayout.LINE_START);
-        add(createBeveragesPanel(navigation), BorderLayout.LINE_END);
+        add(createPizzaPanel(main), BorderLayout.LINE_START);
+        add(createBeveragesPanel(main), BorderLayout.LINE_END);
     }
 
     private JPanel createPizzaPanel(Main navigation) {
