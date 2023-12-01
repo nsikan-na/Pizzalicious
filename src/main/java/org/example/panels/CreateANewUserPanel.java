@@ -43,7 +43,15 @@ public class CreateANewUserPanel extends JPanel {
         JTextField usernameField = new JTextField(20);
         JTextField passwordField = new JTextField(20);
 
-        JPanel inputPanel = new JPanel(new GridBagLayout());
+        JPanel inputPanel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(new ImageIcon(getClass().getResource("/images/back2.png")).getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        setBackground(Color.WHITE);
+        inputPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 

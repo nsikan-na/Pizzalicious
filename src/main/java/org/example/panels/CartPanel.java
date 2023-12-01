@@ -23,7 +23,7 @@ public class CartPanel extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
-
+        setBackground(Color.WHITE);
         add(createMainPanel(main), BorderLayout.CENTER);
 
     }
@@ -31,7 +31,13 @@ public class CartPanel extends JPanel {
     private JPanel createMainPanel(Main main) {
 
 
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(new ImageIcon(getClass().getResource("/images/back2.png")).getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         GridBagConstraints gbc = new GridBagConstraints();
         JLabel totalPriceLabel = new JLabel("Total: $" + totalPrice);
         if (main.cart.size() <= 0) {

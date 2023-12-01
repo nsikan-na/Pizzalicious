@@ -20,7 +20,6 @@ import java.io.InputStreamReader;
 
 public class LoginPanel extends JPanel {
     private MenuPanel menuPanel;
-    private Image backgroundImage;
     public LoginPanel(Main main) {
         setLayout(new BorderLayout());
         JLabel titleLabel = new JLabel("Login");
@@ -34,17 +33,16 @@ public class LoginPanel extends JPanel {
         JButton loginButton = new JButton("Login");
         JLabel createNewUserLabel = new JLabel("Create A New User");
 
-        backgroundImage = new ImageIcon(getClass().getResource("/images/back2.png")).getImage();
-
         JPanel inputPanel = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                g.drawImage(new ImageIcon(getClass().getResource("/images/back2.png")).getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
         setBackground(Color.WHITE);
         inputPanel.setBackground(Color.WHITE);
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 

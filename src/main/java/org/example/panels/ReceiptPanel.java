@@ -24,12 +24,20 @@ public class ReceiptPanel extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(titleLabel, BorderLayout.NORTH);
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
-
+        setBackground(Color.WHITE);
         add(createMainPanel(main), BorderLayout.CENTER);
     }
 
     private JPanel createMainPanel(Main main) {
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(new ImageIcon(getClass().getResource("/images/back2.png")).getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        setBackground(Color.WHITE);
+        panel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
 
 

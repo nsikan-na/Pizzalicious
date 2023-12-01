@@ -14,7 +14,7 @@ public class MenuPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new BorderLayout());
-
+        topPanel.setBackground(Color.WHITE);
         JLabel titleLabel = new JLabel("Menu");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -46,7 +46,7 @@ public class MenuPanel extends JPanel {
             }
         });
         buttonPanel.add(logoutLabel);
-
+        buttonPanel.setBackground(Color.WHITE);
 
 
         topPanel.add(buttonPanel, BorderLayout.EAST);
@@ -56,6 +56,7 @@ public class MenuPanel extends JPanel {
         add(createPizzaPanel(main), BorderLayout.LINE_START);
         add(createBeveragesPanel(main), BorderLayout.LINE_END);
     }
+
 
     private JPanel createPizzaPanel(Main navigation) {
         JPanel pizzaPanel = new JPanel(new GridBagLayout());

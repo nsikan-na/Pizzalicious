@@ -78,6 +78,8 @@ public class PaymentDeliveryPanel extends JPanel {
         main.paymentMethod = "Cash";
         this.add(inputPanel, BorderLayout.LINE_START);
         this.add(cardPanel, BorderLayout.CENTER);
+        this.setBackground(Color.WHITE);
+
 
         paymentMethodField.addActionListener(new ActionListener() {
             @Override
