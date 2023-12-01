@@ -130,12 +130,13 @@ public class CartPanel extends JPanel {
             minusButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    main.getCart().get(currentItemIndex).decreaseQuantity();
-                    quantitylabel.setText("x" + main.getCart().get(currentItemIndex).getQuantity());
-                    pricelabel.setText("" + main.getCart().get(currentItemIndex).getQuantity() * main.getCart().get(currentItemIndex).getPricePerItem());
-                    totalPrice -= main.getCart().get(currentItemIndex).getPricePerItem();
-                    totalPriceLabel.setText("Total: $" + totalPrice);
-
+                    if(main.getCart().get(currentItemIndex).getQuantity()>0) {
+                        main.getCart().get(currentItemIndex).decreaseQuantity();
+                        quantitylabel.setText("x" + main.getCart().get(currentItemIndex).getQuantity());
+                        pricelabel.setText("" + main.getCart().get(currentItemIndex).getQuantity() * main.getCart().get(currentItemIndex).getPricePerItem());
+                        totalPrice -= main.getCart().get(currentItemIndex).getPricePerItem();
+                        totalPriceLabel.setText("Total: $" + totalPrice);
+                    }
                 }
             });
             addButton.addMouseListener(new MouseAdapter() {
