@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class CustomizeBeveragePanel extends JPanel {
 
-    private double myPrice = 1;
+    private double defaultPrice = 1;
     private double additional = 0;
 
     public CustomizeBeveragePanel(Main main) {
@@ -100,7 +100,7 @@ public class CustomizeBeveragePanel extends JPanel {
 
         panel.add(pizzaImage, gbc);
 
-        JLabel priceLabel = new JLabel("$" + myPrice);
+        JLabel priceLabel = new JLabel("$" + defaultPrice);
         gbc.gridheight = 1;
         gbc.gridx = 3;
         gbc.gridy = 10;
@@ -121,7 +121,7 @@ public class CustomizeBeveragePanel extends JPanel {
                 itemDetailsArr.add("None");
                 itemDetailsArr.add("None");
                 itemDetailsArr.add("None");
-                main.addToCart(new CartItem("drink", itemDetailsArr, myPrice + additional, quantityInput));
+                main.addToCart(new CartItem("drink", itemDetailsArr, defaultPrice + additional, quantityInput));
                 main.printCart();
                 main.showScreen(Screen.MENU);
             }
@@ -143,7 +143,7 @@ public class CustomizeBeveragePanel extends JPanel {
             if (sizeInput.equals("Large")) {
                 additional = 2;
             }
-            double x = myPrice + additional;
+            double x = defaultPrice + additional;
             double price = x * quantityInput;
             priceLabel.setText("$" + price);
         });
@@ -165,7 +165,7 @@ public class CustomizeBeveragePanel extends JPanel {
 
             private void handleTextChange() {
                     double quantityInput = Double.parseDouble(quantityField.getText());
-                    double x = myPrice + additional;
+                    double x = defaultPrice + additional;
                     double price = x * quantityInput;
                     priceLabel.setText("$" + price);
 
