@@ -53,5 +53,16 @@
     "name": "test",
     "state": "test",
     "username": "test"
+  },
+  {
+    "zipCode": "",
+    "password": "ran",
+    "phone": "",
+    "city": "",
+    "street": "",
+    "accountType": "VISA",
+    "name": "",
+    "state": "",
+    "username": "ran"
   }
 ]

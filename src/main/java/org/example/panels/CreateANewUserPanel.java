@@ -151,7 +151,7 @@ public class CreateANewUserPanel extends JPanel {
                 String accountTypeInput = (String) accountTypeField.getSelectedItem();
                 String usernameInput = usernameField.getText();
                 String passwordInput = passwordField.getText();
-                if(usernameInput.equals("") ||passwordInput.equals("")){
+                if(usernameInput.equals("") ||passwordInput.equals("")||nameInput.equals("")||phoneInput.equals("")||streetInput.equals("")||cityInput.equals("")||stateInput.equals("")||zipCodeInput.equals("")){
                     return;
                 }
                 try {
