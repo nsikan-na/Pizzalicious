@@ -94,11 +94,12 @@ public class CartPanel extends JPanel {
             panel.add(pizzaImage, gbc);
 
             for (int j = 0; j < itemDetails.size(); j++) {
-                JLabel itemDetailslabel = new JLabel(itemDetails.get(j).equals("None")?"":itemDetails.get(j));
+                JLabel itemDetailslabel = new JLabel(itemDetails.get(j).equals("None") ? "" : itemDetails.get(j));
                 gbc.gridx = 1;
                 gbc.gridy = itemCount + 1;
                 gbc.gridheight = 1;
-
+                itemDetailslabel.setBackground(Color.WHITE);
+                itemDetailslabel.setOpaque(true);
                 panel.add(itemDetailslabel, gbc);
                 itemCount++;
             }
@@ -112,6 +113,9 @@ public class CartPanel extends JPanel {
 
 
             JLabel quantitylabel = new JLabel("x" + quantity.toString());
+            quantitylabel.setBackground(Color.WHITE);
+            quantitylabel.setOpaque(true);
+
             gbc.gridx = 3;
             gbc.gridy = i * rowHeight + 1;
             gbc.gridheight = rowHeight;
@@ -130,7 +134,12 @@ public class CartPanel extends JPanel {
             double price = quantity * pricePerItem;
             totalPrice += price;
             totalPriceLabel.setText("Total: $" + totalPrice);
+            totalPriceLabel.setBackground(Color.WHITE);
+            totalPriceLabel.setOpaque(true);
             JLabel pricelabel = new JLabel("$" + price);
+            pricelabel.setOpaque(true);
+            pricelabel.setBackground(Color.WHITE);
+
             gbc.gridx = 5;
             gbc.gridy = i * rowHeight + 1;
             gbc.gridheight = rowHeight;
@@ -139,7 +148,7 @@ public class CartPanel extends JPanel {
             minusButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if(main.getCart().get(currentItemIndex).getQuantity()>0) {
+                    if (main.getCart().get(currentItemIndex).getQuantity() > 0) {
                         main.getCart().get(currentItemIndex).decreaseQuantity();
                         quantitylabel.setText("x" + main.getCart().get(currentItemIndex).getQuantity());
                         pricelabel.setText("" + main.getCart().get(currentItemIndex).getQuantity() * main.getCart().get(currentItemIndex).getPricePerItem());
@@ -171,7 +180,8 @@ public class CartPanel extends JPanel {
         JLabel backButton = new JLabel("Back to Menu");
 
         backButton.setCursor(Cursor.getPredefinedCursor((Cursor.HAND_CURSOR)));
-
+        backButton.setBackground(Color.WHITE);
+        backButton.setOpaque(true);
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
