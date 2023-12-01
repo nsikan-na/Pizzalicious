@@ -9,5 +9,49 @@
     "name": "Shane",
     "state": "GA",
     "username": "user"
+  },
+  {
+    "zipCode": "30009",
+    "password": "doe",
+    "phone": "123456789",
+    "city": "Main",
+    "street": "Kings Drt",
+    "accountType": "VISA",
+    "name": "John",
+    "state": "VA",
+    "username": "john"
+  },
+  {
+    "zipCode": "20029",
+    "password": "mark",
+    "phone": "1234567890",
+    "city": "city",
+    "street": "main",
+    "accountType": "VISA",
+    "name": "mark",
+    "state": "state",
+    "username": "mark"
+  },
+  {
+    "zipCode": "john",
+    "password": "john",
+    "phone": "john",
+    "city": "john",
+    "street": "john",
+    "accountType": "VISA",
+    "name": "john",
+    "state": "john",
+    "username": "john"
+  },
+  {
+    "zipCode": "test",
+    "password": "test",
+    "phone": "test",
+    "city": "test",
+    "street": "test",
+    "accountType": "VISA",
+    "name": "test",
+    "state": "test",
+    "username": "test"
   }
 ]

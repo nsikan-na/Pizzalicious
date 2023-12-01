@@ -3,6 +3,7 @@ package org.example;
 import org.example.panels.*;
 import org.example.util.CartItem;
 import org.example.util.CurrentUser;
+import org.example.util.NewUser;
 import org.example.util.Screen;
 
 import javax.swing.*;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 public class Main {
     public JFrame frame;
     public ArrayList<CartItem> cart = new ArrayList<>();
+
+    public NewUser newUser;
 
     public String deliveryMethod=null;
 

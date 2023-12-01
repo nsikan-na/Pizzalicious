@@ -97,6 +97,15 @@ public class LoginPanel extends JPanel {
                                 main.frame.add(menuPanel, Screen.MENU.toString());
                                 main.showScreen(Screen.MENU);
                             }
+                            if(main.newUser!=null) {
+                                if (main.newUser.username.equals(usernameInput) && main.newUser.password.equals(passwordInput)) {
+
+                                    main.currentUser = new CurrentUser((String) jsonObject.get("name"), (String) jsonObject.get("phone"), (String) jsonObject.get("street"), (String) jsonObject.get("city"), (String) jsonObject.get("state"), (String) jsonObject.get("zipCode"));
+                                    menuPanel = new MenuPanel(main);
+                                    main.frame.add(menuPanel, Screen.MENU.toString());
+                                    main.showScreen(Screen.MENU);
+                                }
+                            }
                         }
                     }
                 } catch (IOException | ParseException e) {

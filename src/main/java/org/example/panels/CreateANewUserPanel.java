@@ -1,6 +1,7 @@
 package org.example.panels;
 
 import org.example.Main;
+import org.example.util.NewUser;
 import org.example.util.Screen;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,7 +18,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class CreateANewUserPanel extends JPanel {
-    public CreateANewUserPanel(Main navigation) {
+    private LoginPanel loginPanel;
+
+    public CreateANewUserPanel(Main main) {
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Create New Account");
@@ -132,20 +135,20 @@ public class CreateANewUserPanel extends JPanel {
         backButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                navigation.showScreen(Screen.LOGIN);
+                main.showScreen(Screen.LOGIN);
             }
         });
 
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String nameInput= nameField.getText();
-                String phoneInput=phoneField.getText();
-                String streetInput= streetField.getText();
-                String cityInput= cityField.getText();
-                String stateInput=stateField.getText();
-                String zipCodeInput= zipCodeField.getText();
-                String accountTypeInput=(String)accountTypeField.getSelectedItem();
+                String nameInput = nameField.getText();
+                String phoneInput = phoneField.getText();
+                String streetInput = streetField.getText();
+                String cityInput = cityField.getText();
+                String stateInput = stateField.getText();
+                String zipCodeInput = zipCodeField.getText();
+                String accountTypeInput = (String) accountTypeField.getSelectedItem();
                 String usernameInput = usernameField.getText();
                 String passwordInput = passwordField.getText();
                 try {
@@ -160,29 +163,33 @@ public class CreateANewUserPanel extends JPanel {
                         JSONParser jsonParser = new JSONParser();
                         JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
 
-                      JSONObject newData =  new JSONObject();
-                      newData.put("name",nameInput);
-                      newData.put("phone",phoneInput);
-                      newData.put("street",streetInput);
-                      newData.put("city",cityInput);
-                      newData.put("state",stateInput);
-                      newData.put("zipCode",zipCodeInput);
-                      newData.put("accountType",accountTypeInput);
-                      newData.put("username",usernameInput);
-                      newData.put("password",passwordInput);
-                      jsonArray.add(newData);
+                        JSONObject newData = new JSONObject();
+                        newData.put("name", nameInput);
+                        newData.put("phone", phoneInput);
+                        newData.put("street", streetInput);
+                        newData.put("city", cityInput);
+                        newData.put("state", stateInput);
+                        newData.put("zipCode", zipCodeInput);
+                        newData.put("accountType", accountTypeInput);
+                        newData.put("username", usernameInput);
+                        newData.put("password", passwordInput);
+                        main.newUser = new NewUser(usernameInput, passwordInput);
+                        jsonArray.add(newData);
                         try (FileWriter fileWriter = new FileWriter("src/main/resources/db/Users.json")) {
                             fileWriter.write(jsonArray.toJSONString());
                             System.out.println("Data appended to the existing JSON file successfully!");
                         } catch (IOException err) {
                             err.printStackTrace();
                         }
+
                     }
                 } catch (IOException | ParseException err) {
                     err.printStackTrace();
                     err.printStackTrace();
                 }
-                navigation.showScreen(Screen.LOGIN);
+                loginPanel = new LoginPanel(main);
+                main.frame.add(loginPanel, Screen.LOGIN.toString());
+                main.showScreen(Screen.LOGIN);
             }
         });
     }
