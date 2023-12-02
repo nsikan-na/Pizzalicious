@@ -42,27 +42,5 @@
     "name": "john",
     "state": "john",
     "username": "john"
-  },
-  {
-    "zipCode": "test",
-    "password": "test",
-    "phone": "test",
-    "city": "test",
-    "street": "test",
-    "accountType": "VISA",
-    "name": "test",
-    "state": "test",
-    "username": "test"
-  },
-  {
-    "zipCode": "",
-    "password": "",
-    "phone": "",
-    "city": "",
-    "street": "",
-    "accountType": "VISA",
-    "name": "",
-    "state": "",
-    "username": ""
   }
 ]
