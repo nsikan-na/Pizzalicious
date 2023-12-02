@@ -45,7 +45,7 @@ public class MenuPanel extends JPanel {
                 main.showScreen(Screen.LOGIN);
             }
         });
-        buttonPanel.add(logoutLabel);
+//        buttonPanel.add(logoutLabel);
         buttonPanel.setBackground(Color.WHITE);
 
 

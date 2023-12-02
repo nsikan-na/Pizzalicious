@@ -1,6 +1,7 @@
 package org.example.panels;
 
 import org.example.Main;
+import org.example.util.CurrentUser;
 import org.example.util.NewUser;
 import org.example.util.Screen;
 import org.json.simple.JSONArray;
@@ -16,9 +17,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class CreateANewUserPanel extends JPanel {
     private LoginPanel loginPanel;
+    private MenuPanel menuPanel;
 
     public CreateANewUserPanel(Main main) {
         setLayout(new BorderLayout());
@@ -198,9 +201,11 @@ public class CreateANewUserPanel extends JPanel {
                     err.printStackTrace();
                     err.printStackTrace();
                 }
-                loginPanel = new LoginPanel(main);
-                main.frame.add(loginPanel, Screen.LOGIN.toString());
-                main.showScreen(Screen.LOGIN);
+                main.currentUser = new CurrentUser(nameInput, phoneInput, streetInput, cityInput,stateInput,zipCodeInput);
+                menuPanel = new MenuPanel(main);
+                main.frame.add(menuPanel, Screen.MENU.toString());
+                main.showScreen(Screen.MENU);
+                main.cart= new ArrayList<>();
             }
         });
     }
