@@ -6,4 +6,4 @@ We worked on a team of 5 to make a desktop application that will set up new cust
 
 ## This was build using
 
-- Java Gui 
+- Java GUI
